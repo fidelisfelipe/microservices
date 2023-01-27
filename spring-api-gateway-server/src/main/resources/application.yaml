@@ -1,0 +1,23 @@
+server:
+  port: 8765
+spring:
+  application:
+    name: spring-api-gateway-server
+  cloud:
+    gateway:
+      routes:
+        - id: currency-exchange-service
+          uri: lb://currency-exchange-service
+          predicates:
+            - Path=/currency-exchange/**
+
+  eureka:
+    client:
+      service-url:
+        defaultZone: 'http://localhost:8761/eureka'
+    instance:
+      hostname: localhost
+
+logging:
+  level:
+    web: DEBUG
