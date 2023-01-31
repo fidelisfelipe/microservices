@@ -1,5 +1,7 @@
 package com.example.microservices.currencyconversionservice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import java.util.Map;
 
 @RestController
 public class CurrencyConversionController {
+
+    private Logger logger = LoggerFactory.getLogger(CurrencyConversionController.class);
     @Autowired
     private Environment environment;
     @Autowired
@@ -39,7 +43,7 @@ public class CurrencyConversionController {
                                                   @PathVariable("quantity") BigDecimal quantity){
 
         CurrencyConversionBean response = proxy.retrieveExchangeValue(from, to);
-
+        logger.info("{}", response);
         return new CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(),
                 quantity, quantity.multiply(response.getConversionMultiple()), response.getPort());
     }

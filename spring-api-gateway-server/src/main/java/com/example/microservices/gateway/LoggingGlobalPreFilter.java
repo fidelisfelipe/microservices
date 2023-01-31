@@ -1,31 +1,38 @@
 package com.example.microservices.gateway;
 
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cloud.gateway.filter.GatewayFilterChain;
-import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.core.Ordered;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Mono;
+
+import javax.servlet.http.HttpServletRequest;
+
 @Component
-public class LoggingGlobalPreFilter implements GlobalFilter, Ordered {
+public class LoggingGlobalPreFilter extends ZuulFilter {
 
     private Logger logger = LoggerFactory.getLogger(LoggingGlobalPreFilter.class);
-
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        logger.info("First Pre Global Filter");
-        return chain.filter(exchange)
-                .then(Mono.fromRunnable(() -> {
-                    logger.info("Last Post Global Filter");
-                }));
+    public boolean shouldFilter() {
+        return true;
     }
 
     @Override
-    public int getOrder() {
-        return -1;
+    public Object run() {
+        HttpServletRequest request =
+                RequestContext.getCurrentContext().getRequest();
+        logger.info("request -> {} request uri -> {}",
+                request, request.getRequestURI());
+        return null;
+    }
+
+    @Override
+    public String filterType() {
+        return "pre";
+    }
+
+    @Override
+    public int filterOrder() {
+        return 1;
     }
 }
