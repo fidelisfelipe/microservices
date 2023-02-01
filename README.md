@@ -33,12 +33,26 @@ The following guides illustrate how to use some features concretely:
 * [Using Spring Cloud Sleuth for tracing request](https://spring.io/projects/spring-cloud-sleuth)
 
 ### Ports used
-    * Limite Service                    8080, 8081, ...
-    * Currency Exchange Service         8000, 8001, 8002, ...   use bd memory -> http://localhost:8000/h2-console
+    * Limite Service                    8080, 8081, ...        
+        - http://localhost:8080/limits
+    * Currency Exchange Service         8000, 8001, 8002, ...   
+        - http://localhost:8000/currency-exchange/from/EUR/to/INR
+        - http://localhost:8000/h2-console
     * Spring Cloud Config Service       8888
     * Currency Conversion Service       8100, 8101, 8102, ...
-    * Netflix Eureka Naming Server      8761                    http://localhost:8761/
+        - http://localhost:8100/currency-converter-feign/from/USA/to/INR/quantity/200
+    * Netflix Eureka Naming Server      8761                    
+        - http://localhost:8761/
     * Netflix Zuul API Gateway Server   8765                    
-        - ex: use to conversion service -> http://localhost:8765/currency-conversion-service/currency-converter-feign/from/USA/to/INR/quantity/200
-    * Zipkin Distributed Tracing Server 9411                    http://localhost:9411/zipkin
+        - http://localhost:8765/currency-conversion-service/currency-converter-feign/from/USA/to/INR/quantity/200
+    * Zipkin Distributed Tracing Server 9411                    
+        - http://localhost:9411/zipkin
 
+### dev
+  * zipkin with rabbitmq
+  ```
+    set RABBIT_URI=amqp://localhost 
+    java -jar zipkin-server-2.24.0-exec.jar
+  ```
+  * refresh config
+    - POST - localhost:8080/actuator/refresh
