@@ -55,4 +55,5 @@ The following guides illustrate how to use some features concretely:
     java -jar zipkin-server-2.24.0-exec.jar
   ```
   * refresh config
-    - POST - localhost:8080/actuator/refresh
+    - POST - http://localhost:8080/actuator/refresh - refresh one instance
+    - POST - http://localhost:8080/actuator/busrefresh - refresh all instances
