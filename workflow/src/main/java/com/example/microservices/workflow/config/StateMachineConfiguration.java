@@ -3,6 +3,7 @@ package com.example.microservices.workflow.config;
 import com.example.microservices.workflow.bean.FluxoEvents;
 import com.example.microservices.workflow.bean.FluxoStates;
 import com.example.microservices.workflow.listener.StateMachineListener;
+
 import com.example.microservices.workflow.service.FluxoServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,7 @@ public class StateMachineConfiguration extends StateMachineConfigurerAdapter<Flu
         config
                 .withConfiguration()
                 .listener(stateMachineListener);
+
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.example.microservices.workflow.interceptor;
 
 import com.example.microservices.workflow.bean.FluxoEvents;
 import com.example.microservices.workflow.bean.FluxoStates;
-import com.example.microservices.workflow.repository.FluxoRepository;
+import com.example.microservices.workflow.repository.StateMachineRepository;
 import com.example.microservices.workflow.service.FluxoServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class StateMachineInterceptor extends StateMachineInterceptorAdapter<FluxoStates, FluxoEvents> {
-    private final FluxoRepository repository;
+    private final StateMachineRepository repository;
     @Override
     public void preStateChange( State<FluxoStates,
-            FluxoEvents> state,
+                                FluxoEvents> state,
                                 Message<FluxoEvents> message,
                                 Transition<FluxoStates,
                                         FluxoEvents> transition,
@@ -36,5 +36,10 @@ public class StateMachineInterceptor extends StateMachineInterceptorAdapter<Flux
             log.info("pre state change - save fluxo {}", fluxo);
             repository.save(fluxo.get());
         }
+    }
+    @Override
+    public Exception stateMachineError(StateMachine<FluxoStates, FluxoEvents> stateMachine, Exception exception) {
+        log.error("state machine erro",exception);
+        return exception;
     }
 }
