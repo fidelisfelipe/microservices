@@ -34,4 +34,5 @@ public class StateMachineListener extends StateMachineListenerAdapter<FluxoState
     public void eventNotAccepted(Message<FluxoEvents> event) {
         log.error("event not accepted: {}", event);
     }
+
 }

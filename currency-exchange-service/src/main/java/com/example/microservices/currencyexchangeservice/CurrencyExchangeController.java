@@ -19,7 +19,7 @@ public class CurrencyExchangeController {
         ExchangeValue exchangeValue = exchangeValueRepository.findByFromAndTo(from, to);
 
         if(exchangeValue == null){
-            return new ExchangeValue(0l, from, to, BigDecimal.ZERO);
+            throw new RuntimeException(String.format("Unable to find data for %s to %s", from, to));
         }
 
         exchangeValue.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
