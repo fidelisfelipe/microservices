@@ -10,12 +10,15 @@ import java.math.BigDecimal;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class CurrencyExchangeController {
+
+    private Logger logger = LoggerFactory.getLogger(CurrencyExchangeController.class);
     @Autowired
     private ExchangeValueRepository exchangeValueRepository;
     @Autowired
     private Environment environment;
     @GetMapping("/currency-exchange/from/{from}/to/{to}")
     public ExchangeValue retrieveExchangeValue(@PathVariable("from") String from, @PathVariable("to") String to){
+        logger.info("retrieveExchangeValue called with {} to {}", from, to);
         ExchangeValue exchangeValue = exchangeValueRepository.findByFromAndTo(from, to);
 
         if(exchangeValue == null){

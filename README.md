@@ -57,3 +57,10 @@ The following guides illustrate how to use some features concretely:
   * refresh config
     - POST - http://localhost:8080/actuator/refresh - refresh one instance
     - POST - http://localhost:8080/actuator/busrefresh - refresh all instances
+	
+ * docker
+    - [Open Zipkin] (https://hub.docker.com/r/openzipkin/zipkin/)
+	```
+		docker run -d -p 9411:9411 openzipkin/zipkin
+	```
+   
