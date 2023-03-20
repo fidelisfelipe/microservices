@@ -7,12 +7,14 @@ services:
     mem_limit: 700m
     ports:
       - "8000:8000"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka
+      EUREKA.CLIENT.FETCHREGISTRY: "true"
     networks:
       - currency-network
     depends_on:
       - naming-server
-    environment:
-      EUREKA.CLIENT.SERVICE-URL.DEFAULT-ZONE: http://naming-server:8761/eureka
+
 
   naming-server:
     image: fidelisfelipe/naming-server:0.0.1-SNAPSHOT
