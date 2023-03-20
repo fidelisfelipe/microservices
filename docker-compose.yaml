@@ -1,0 +1,88 @@
+version: '3.7'
+
+services:
+
+  currency-exchange-service:
+    image: fidelisfelipe/currency-exchange-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8000:8000"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA.CLIENT.SERVICE-URL.DEFAULT-ZONE: http://naming-server:8761/eureka
+
+  naming-server:
+    image: fidelisfelipe/naming-server:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8761:8761"
+    networks:
+      - currency-network
+
+#  api-gateway-service:
+#    image: fidelisfelipe/api-gateway-service:0.0.1-SNAPSHOT
+#    mem_limit: 700m
+#    ports:
+#      - "8765:8765"
+#    networks:
+#      - currency-network
+#    depends_on:
+#      - naming-server
+#    environment:
+#      EUREKA.CLIENT.SERVICE-URL.DEFAULT-ZONE: http://naming-server:8761/eureka
+networks:
+  currency-network:
+
+#  zipkin-server:
+#    image: openzipkin/zipkin:2.23
+#    mem_limit: 300m
+#    ports:
+#      - "9411:9411"
+#    networks:
+#      - currency-network
+#    restart: always
+
+#  currency-conversion-service:
+#    image: fidelisfelipe/currency-conversion-service:0.0.1-SNAPSHOT
+#    mem_limit: 700m
+#    ports:
+#      - "8100:8100"
+#    networks:
+#      - currency-network
+#    depends_on:
+#      - config-server-service
+#      - naming-server-service
+#      - api-gateway-service
+#    environment:
+#      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server-service:8761
+
+#  limits-service:
+#    image: fidelisfelipe/limits-service:0.0.1-SNAPSHOT
+#    mem_limit: 700m
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - currency-network
+#    depends_on:
+#     - config-server-service
+#      - naming-server-service
+#      - api-gateway-service
+
+#  config-server-service:
+#    image: fidelisfelipe/config-server-service:0.0.1-SNAPSHOT
+#    mem_limit: 700m
+#    ports:
+#      - "8888:8888"
+#    networks:
+#      - currency-network
+
+#  api-gateway-service:
+#    image: fidelisfelipe/api-gateway-service:0.0.1-SNAPSHOT
+#    mem_limit: 700m
+#    ports:
+#      - "8765:8765"
+#    networks:
+#      - currency-network
