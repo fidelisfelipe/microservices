@@ -8,13 +8,55 @@ services:
     ports:
       - "8000:8000"
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka
-      EUREKA.CLIENT.FETCHREGISTRY: "true"
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka/
+      - EUREKA.CLIENT.FETCHREGISTRY=true
+      - spring.zipkin.baseUrl=http://zipkin-server:9411
     networks:
       - currency-network
     depends_on:
       - naming-server
+      - api-gateway-service
 
+  currency-conversion-service:
+    image: fidelisfelipe/currency-conversion-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8100:8100"
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka/
+      - EUREKA.CLIENT.FETCHREGISTRY=true
+      - spring.zipkin.baseUrl=http://zipkin-server:9411
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+      - currency-exchange-service
+
+  limits-service:
+    image: fidelisfelipe/limits-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8080:8080"
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka/
+      - EUREKA.CLIENT.FETCHREGISTRY=true
+#      - spring.zipkin.baseUrl=http://zipkin-server:9411
+      - spring.cloud.config.uri=http://config-server-service:8888
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+      - config-server-service
+
+  config-server-service:
+    image: fidelisfelipe/config-server-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8888:8888"
+    networks:
+      - currency-network
+    depends_on:
+      - api-gateway-service
 
   naming-server:
     image: fidelisfelipe/naming-server:0.0.1-SNAPSHOT
@@ -23,6 +65,29 @@ services:
       - "8761:8761"
     networks:
       - currency-network
+    depends_on:
+      - api-gateway-service
+
+  api-gateway-service:
+    image: fidelisfelipe/api-gateway-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8765:8765"
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka/
+      - EUREKA.CLIENT.FETCHREGISTRY=true
+      - spring.zipkin.baseUrl=http://zipkin-server:9411
+    networks:
+      - currency-network
+
+  zipkin-server:
+    image: openzipkin/zipkin:2.24
+    mem_limit: 300m
+    ports:
+      - "9411:9411"
+    networks:
+      - currency-network
+    restart: always #Restart if there is a problem starting up
 
 #  api-gateway-service:
 #    image: fidelisfelipe/api-gateway-service:0.0.1-SNAPSHOT
