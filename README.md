@@ -40,13 +40,13 @@ The following guides illustrate how to use some features concretely:
         - http://localhost:8000/h2-console
     * Spring Cloud Config Service       8888
     * Currency Conversion Service       8100, 8101, 8102, ...
-        - http://localhost:8100/currency-converter-feign/from/USA/to/INR/quantity/200
+        - http://localhost:8100/currency-conversion-feign/from/USA/to/INR/quantity/200
     * Statemachine Service              8200, 8201, 8202, ...
         - http://localhost:8200/
     * Netflix Eureka Naming Server      8761                    
         - http://localhost:8761/
     * Netflix Zuul API Gateway Server   8765                    
-        - http://localhost:8765/currency-conversion-service/currency-converter-feign/from/USA/to/INR/quantity/200
+        - http://localhost:8765/currency-conversion-service/currency-conversion-feign/from/USA/to/INR/quantity/200
     * Zipkin Distributed Tracing Server 9411                    
         - http://localhost:9411/zipkin
 
