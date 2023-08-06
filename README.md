@@ -41,6 +41,8 @@ The following guides illustrate how to use some features concretely:
     * Spring Cloud Config Service       8888
     * Currency Conversion Service       8100, 8101, 8102, ...
         - http://localhost:8100/currency-converter-feign/from/USA/to/INR/quantity/200
+    * Statemachine Service              8200, 8201, 8202, ...
+        - http://localhost:8200/
     * Netflix Eureka Naming Server      8761                    
         - http://localhost:8761/
     * Netflix Zuul API Gateway Server   8765                    
