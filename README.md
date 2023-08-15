@@ -42,7 +42,8 @@ The following guides illustrate how to use some features concretely:
     * Currency Conversion Service       8100, 8101, 8102, ...
         - http://localhost:8100/currency-conversion-feign/from/USA/to/INR/quantity/200
     * Statemachine Service              8200, 8201, 8202, ...
-        - http://localhost:8200/
+        - http://localhost:8200/create
+        - http://localhost:8200/state/last/1
     * Netflix Eureka Naming Server      8761                    
         - http://localhost:8761/
     * Netflix Zuul API Gateway Server   8765                    

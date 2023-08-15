@@ -1,0 +1,34 @@
+<div>
+  <h2>Type Conversion List</h2>
+
+  <p><em>Select a type conversion from the list to see details</em></p>
+
+  <h3>From</h3>
+  <ul>
+    <li *ngFor="let type of typeConversionList">
+      <button type="button" (click)="selectTypeConversion(type)" >
+        {{type.name}}
+      </button>
+    </li>
+  </ul>
+
+  <h3>To</h3>
+  <ul>
+    <li *ngFor="let type of typeConversionList">
+      <button type="button" (click)="selectTypeConversion(type)" >
+        {{type.name}}
+      </button>
+    </li>
+  </ul>
+
+
+  <p *ngIf="typeConversion">
+    <button type="button">{{typeConversion.name}}</button> - <a href="#" (click)="clear()" >remove</a>
+  </p>
+
+  <app-component-conversion-alert
+    [typeConversion]="typeConversion"
+    (notify)="onNotify()">
+  </app-component-conversion-alert>
+
+</div>

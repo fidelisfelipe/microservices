@@ -24,6 +24,16 @@ public class StateMachineController {
     private final FluxoService service;
     private final HistoryService historyService;
 
+    @GetMapping("create")
+    public ResponseEntity create(){
+        log.info("create");
+        var fluxo = Fluxo.builder()
+                .state(FluxoStates.CRIADO.name())
+                .localDate(LocalDate.now()).build();
+
+        return ResponseEntity.status(CREATED).body(service.save(fluxo));
+    }
+
     @GetMapping("state/last/{id}")
     public ResponseEntity stateLast(@PathVariable Long id){
         log.info("get state");
@@ -42,15 +52,7 @@ public class StateMachineController {
 
         return ResponseEntity.status(NOT_FOUND).body(String.format("not found id:%s", id));
     }
-    @GetMapping("create")
-    public ResponseEntity create(){
-        log.info("create");
-        var fluxo = Fluxo.builder()
-                .state(FluxoStates.CRIADO.name())
-                .localDate(LocalDate.now()).build();
 
-        return ResponseEntity.status(CREATED).body(service.save(fluxo));
-    }
 
     @PutMapping("change")
     public ResponseEntity changeState(@RequestBody Fluxo fluxo){
