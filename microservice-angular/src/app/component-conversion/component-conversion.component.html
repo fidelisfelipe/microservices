@@ -23,12 +23,14 @@
 
 
   <p *ngIf="typeConversion">
-    <button type="button">{{typeConversion.name}}</button> - <a href="#" (click)="clear()" >remove</a>
+    <button type="button">{{typeConversion.name}}</button> - <button (click)="clear()" >remove</button>
   </p>
 
   <app-component-conversion-alert
     [typeConversion]="typeConversion"
     (notify)="onNotify()">
   </app-component-conversion-alert>
+
+  <label>Selected: </label><input id="name" [(ngModel)]="typeConversion && typeConversion.name" placeholder="name" readonly >
 
 </div>
