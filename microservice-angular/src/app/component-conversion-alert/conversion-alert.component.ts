@@ -3,10 +3,10 @@ import {TypeConversion} from "../types/TypeConversion";
 
 @Component({
   selector: 'app-component-conversion-alert',
-  templateUrl: './component-conversion-alert.component.html',
-  styleUrls: ['./component-conversion-alert.component.css']
+  templateUrl: './conversion-alert.component.html',
+  styleUrls: ['./conversion-alert.component.css']
 })
-export class ComponentConversionAlertComponent {
+export class ConversionAlertComponent {
   @Input() typeConversion: TypeConversion | undefined;
   @Output() notify = new EventEmitter();
 

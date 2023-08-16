@@ -3,10 +3,10 @@ import {TypeConversion, typeConversionList} from "../types/TypeConversion";
 
 @Component({
   selector: 'app-component-conversion',
-  templateUrl: './component-conversion.component.html',
-  styleUrls: ['./component-conversion.component.css']
+  templateUrl: './conversion.component.html',
+  styleUrls: ['./conversion.component.css']
 })
-export class ComponentConversionComponent implements OnInit {
+export class ConversionComponent implements OnInit {
 
   typeConversionList = [...typeConversionList];
   @Input() typeConversion: TypeConversion | undefined;
@@ -18,14 +18,9 @@ export class ComponentConversionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  selectTypeConversion(typeConversion: TypeConversion): void {
+  onSelect(typeConversion: TypeConversion): void {
     console.log('selected item '+typeConversion.name)
     this.typeConversion = typeConversion;
-  }
-
-  clear(): void {
-    console.log('clean...')
-    this.typeConversion = undefined;
   }
 
   onNotify() {

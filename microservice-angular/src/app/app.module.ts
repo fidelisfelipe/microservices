@@ -2,16 +2,18 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { ComponentConversionComponent } from './component-conversion/component-conversion.component';
-import { ComponentConversionAlertComponent } from './component-conversion-alert/component-conversion-alert.component';
+import { ConversionComponent } from './component-conversion/conversion.component';
+import { ConversionAlertComponent } from './component-conversion-alert/conversion-alert.component';
 import { AppRoutingModule } from './component-router/app-routing.module';
 import {FormsModule} from "@angular/forms";
+import { ConversionDetailComponent } from './conversion-detail/conversion-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ComponentConversionComponent,
-    ComponentConversionAlertComponent,
+    ConversionComponent,
+    ConversionAlertComponent,
+    ConversionDetailComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,13 @@
+<div *ngIf="typeConversion">
+
+  <h2>{{typeConversion.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{typeConversion.id}}</div>
+  <div>
+    <label for="type-name">Type Conversion name: </label>
+    <input id="type-name" [(ngModel)]="typeConversion.name" placeholder="name" />
+    <p *ngIf="typeConversion">
+      <button type="button">{{typeConversion.name}}</button> - <button (click)="onRemove()" >remove</button>
+    </p>
+  </div>
+
+</div>

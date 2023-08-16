@@ -6,31 +6,27 @@
   <h3>From</h3>
   <ul>
     <li *ngFor="let type of typeConversionList">
-      <button type="button" (click)="selectTypeConversion(type)" >
+      <button type="button" (click)="onSelect(type)" >
         {{type.name}}
       </button>
     </li>
   </ul>
 
   <h3>To</h3>
-  <ul>
+  <ul class="type-conversion">
     <li *ngFor="let type of typeConversionList">
-      <button type="button" (click)="selectTypeConversion(type)" >
-        {{type.name}}
+      <button type="button" (click)="onSelect(type)" [class.selected]="type === typeConversion">
+        <span class="badge">{{type.id}}</span>
+        <span class="name">{{type.name}}</span>
       </button>
     </li>
   </ul>
-
-
-  <p *ngIf="typeConversion">
-    <button type="button">{{typeConversion.name}}</button> - <button (click)="clear()" >remove</button>
-  </p>
 
   <app-component-conversion-alert
     [typeConversion]="typeConversion"
     (notify)="onNotify()">
   </app-component-conversion-alert>
 
-  <label>Selected: </label><input id="name" [(ngModel)]="typeConversion && typeConversion.name" placeholder="name" readonly >
+  <app-conversion-detail [typeConversion]="typeConversion"  ></app-conversion-detail>
 
 </div>

@@ -1,8 +1,7 @@
+import {TYPE_CONVERSION_LIST} from "../mock-type-conversion";
+
 export interface TypeConversion {
   id: number;
   name: string;
 }
-export const typeConversionList: TypeConversion[] = [
-  {id: 1, name: 'BRA'},
-  {id: 2, name: 'EUR'}
-];
+export const typeConversionList: TypeConversion[] = TYPE_CONVERSION_LIST;

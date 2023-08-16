@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ComponentConversionAlertComponent } from './component-conversion-alert.component';
+import { ConversionAlertComponent } from './conversion-alert.component';
 
 describe('ComponentConversionAlertComponent', () => {
-  let component: ComponentConversionAlertComponent;
-  let fixture: ComponentFixture<ComponentConversionAlertComponent>;
+  let component: ConversionAlertComponent;
+  let fixture: ComponentFixture<ConversionAlertComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ComponentConversionAlertComponent]
+      declarations: [ConversionAlertComponent]
     });
-    fixture = TestBed.createComponent(ComponentConversionAlertComponent);
+    fixture = TestBed.createComponent(ConversionAlertComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

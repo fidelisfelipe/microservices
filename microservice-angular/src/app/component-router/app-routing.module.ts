@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
-import {ComponentConversionComponent} from "../component-conversion/component-conversion.component";
+import {ConversionComponent} from "../component-conversion/conversion.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
-  { path: 'conversion', component: ComponentConversionComponent }
+  { path: 'conversion', component: ConversionComponent }
 ];
 
 
