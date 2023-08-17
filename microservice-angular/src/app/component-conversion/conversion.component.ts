@@ -31,4 +31,19 @@ export class ConversionComponent implements OnInit {
       .subscribe(typeConversionList => this.typeConversionList = typeConversionList);
   }
 
+  add(name: string) {
+    name = name.trim();
+    if (!name) {
+      return;
+    }
+    this.conversionService.addConversion({ name } as TypeConversion)
+      .subscribe(typeConversion => {
+        this.typeConversionList.push(typeConversion);
+      });
+  }
+
+  delete(type: TypeConversion) {
+    this.typeConversionList = this.typeConversionList.filter((h) => h !== type);
+    this.conversionService.deleteConversion(type).subscribe();
+  }
 }

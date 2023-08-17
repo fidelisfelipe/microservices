@@ -1,6 +1,16 @@
 <div>
   <h2>Type Conversion List</h2>
 
+  <div>
+    <label for="new-type">Conversion name: </label>
+    <input id="new-type" #typeName />
+
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button type="button" class="add-button" (click)="add(typeName.value); typeName.value=''">
+      Add Conversion
+    </button>
+  </div>
+
   <p><em>Select a type conversion from the list to see details</em></p>
 
   <ul class="type-conversion">
@@ -9,6 +19,8 @@
       <a routerLink="/conversion/{{type.id}}">
         <span class="badge">{{type.id}}</span> | {{type.name}}
       </a>
+      <button type="button" class="delete" title="delete type conversion"
+              (click)="delete(type)">x</button>
 
     </li>
   </ul>

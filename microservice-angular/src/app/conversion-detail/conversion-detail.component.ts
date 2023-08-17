@@ -31,4 +31,11 @@ export class ConversionDetailComponent implements OnInit{
   goBack() {
     this.location.back();
   }
+
+  save() {
+    if(this.typeConversion){
+      this.conversionService.updateConversion(this.typeConversion)
+        .subscribe(() => this.goBack());
+    }
+  }
 }

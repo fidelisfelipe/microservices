@@ -2,10 +2,16 @@
   <h2>{{typeConversion.name | uppercase}} Details</h2>
 
   <div><span>id: </span>{{typeConversion.id}}</div>
-  <div><span>name: </span>{{typeConversion.name}}</div>
+  <div>
+    <label for="type-name">Type name: </label>
+    <input id="type-name" [(ngModel)]="typeConversion.name" placeholder="Type name"/>
+  </div>
 
   <div>
     <button (click)="goBack()">back</button>
+  </div>
+  <div>
+    <button type="button" (click)="save()">save</button>
   </div>
 
 </div>
