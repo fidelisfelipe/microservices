@@ -3,22 +3,13 @@
 
   <p><em>Select a type conversion from the list to see details</em></p>
 
-  <h3>From</h3>
-  <ul>
-    <li *ngFor="let type of typeConversionList">
-      <button type="button" (click)="onSelect(type)" >
-        {{type.name}}
-      </button>
-    </li>
-  </ul>
-
-  <h3>To</h3>
   <ul class="type-conversion">
     <li *ngFor="let type of typeConversionList">
-      <button type="button" (click)="onSelect(type)" [class.selected]="type === typeConversion">
-        <span class="badge">{{type.id}}</span>
-        <span class="name">{{type.name}}</span>
-      </button>
+
+      <a routerLink="/conversion/{{type.id}}">
+        <span class="badge">{{type.id}}</span> | {{type.name}}
+      </a>
+
     </li>
   </ul>
 
@@ -29,5 +20,4 @@
 
   <app-conversion-detail [typeConversion]="typeConversion"  ></app-conversion-detail>
 
-  <app-messages></app-messages>
 </div>

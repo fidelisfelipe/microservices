@@ -16,4 +16,10 @@ export class ConversionService {
     this.messageService.add('ConversionService: fetched type conversion list');
     return typeConversionList;
   }
+
+  getConversion(id: number) {
+    const conversion = TYPE_CONVERSION_LIST.find(c => c.id === id)!;
+    this.messageService.add(`ConversionService: fetched conversion id=${id}`);
+    return of(conversion);
+  }
 }

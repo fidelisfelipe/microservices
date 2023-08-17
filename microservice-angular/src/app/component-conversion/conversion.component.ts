@@ -22,11 +22,6 @@ export class ConversionComponent implements OnInit {
     this.getConversionList();
   }
 
-  onSelect(typeConversion: TypeConversion): void {
-    this.typeConversion = typeConversion;
-    this.messageService.add(`ConversionComponent: Selected type conversion id=${typeConversion.id}`);
-  }
-
   onNotify() {
     window.alert('You will be notified when the type conversion on selected');
   }
