@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {TypeConversion} from "../types/TypeConversion";
+import {TypeConversion} from "../types/type-conversion";
 
 @Component({
   selector: 'app-conversion-detail',

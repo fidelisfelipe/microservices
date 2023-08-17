@@ -1,4 +1,4 @@
-import {TypeConversion} from "./types/TypeConversion";
+import {TypeConversion} from "./types/type-conversion";
 
 export const TYPE_CONVERSION_LIST: TypeConversion[] = [
   {id: 1, name: 'BRA'},

@@ -7,6 +7,7 @@ import { ConversionAlertComponent } from './component-conversion-alert/conversio
 import { AppRoutingModule } from './component-router/app-routing.module';
 import {FormsModule} from "@angular/forms";
 import { ConversionDetailComponent } from './conversion-detail/conversion-detail.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { ConversionDetailComponent } from './conversion-detail/conversion-detail
     ConversionComponent,
     ConversionAlertComponent,
     ConversionDetailComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,

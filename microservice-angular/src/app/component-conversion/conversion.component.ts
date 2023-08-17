@@ -1,5 +1,9 @@
 import {Component,  Input, OnInit} from '@angular/core';
-import {TypeConversion, typeConversionList} from "../types/TypeConversion";
+import {TypeConversion} from "../types/type-conversion";
+import {ConversionService} from "../services/conversion.service";
+import {Observable} from "rxjs";
+import {TYPE_CONVERSION_LIST} from "../mock-type-conversion";
+import {MessageService} from "../services/message.service";
 
 @Component({
   selector: 'app-component-conversion',
@@ -8,24 +12,28 @@ import {TypeConversion, typeConversionList} from "../types/TypeConversion";
 })
 export class ConversionComponent implements OnInit {
 
-  typeConversionList = [...typeConversionList];
-  @Input() typeConversion: TypeConversion | undefined;
+  typeConversionList:TypeConversion[] = [];
+  @Input() typeConversion?: TypeConversion;
 
-
-  constructor() {
+  constructor(private conversionService: ConversionService, private messageService:MessageService) {
   }
 
   ngOnInit(): void {
+    this.getConversionList();
   }
 
   onSelect(typeConversion: TypeConversion): void {
-    console.log('selected item '+typeConversion.name)
     this.typeConversion = typeConversion;
+    this.messageService.add(`ConversionComponent: Selected type conversion id=${typeConversion.id}`);
   }
 
   onNotify() {
     window.alert('You will be notified when the type conversion on selected');
   }
 
+ getConversionList(): void {
+    this.conversionService.getTypeConversionList()
+      .subscribe(typeConversionList => this.typeConversionList = typeConversionList);
+  }
 
 }
