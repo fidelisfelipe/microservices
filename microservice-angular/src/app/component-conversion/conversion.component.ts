@@ -31,6 +31,14 @@ export class ConversionComponent implements OnInit {
       .subscribe(typeConversionList => this.typeConversionList = typeConversionList);
   }
 
+  delete(type: TypeConversion) {
+    this.typeConversionList = this.typeConversionList.filter((h) => h !== type);
+    this.conversionService.deleteConversion(type).subscribe();
+  }
+
+  search($event: any) {
+
+  }
   add(name: string) {
     name = name.trim();
     if (!name) {
@@ -40,10 +48,5 @@ export class ConversionComponent implements OnInit {
       .subscribe(typeConversion => {
         this.typeConversionList.push(typeConversion);
       });
-  }
-
-  delete(type: TypeConversion) {
-    this.typeConversionList = this.typeConversionList.filter((h) => h !== type);
-    this.conversionService.deleteConversion(type).subscribe();
   }
 }

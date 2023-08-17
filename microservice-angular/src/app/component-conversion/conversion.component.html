@@ -1,5 +1,8 @@
 <div>
-  <h2>Type Conversion List</h2>
+  <h2>Type Conversion </h2>
+
+  <app-component-conversion-search (search)="search($event)"></app-component-conversion-search>
+
 
   <div>
     <label for="new-type">Conversion name: </label>
@@ -11,7 +14,7 @@
     </button>
   </div>
 
-  <p><em>Select a type conversion from the list to see details</em></p>
+   <p><em>Select a type conversion from the list to see details</em></p>
 
   <ul class="type-conversion">
     <li *ngFor="let type of typeConversionList">

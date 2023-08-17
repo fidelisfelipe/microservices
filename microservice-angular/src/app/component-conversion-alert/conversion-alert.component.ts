@@ -9,6 +9,4 @@ import {TypeConversion} from "../types/type-conversion";
 export class ConversionAlertComponent {
   @Input() typeConversion: TypeConversion | undefined;
   @Output() notify = new EventEmitter();
-
-
 }

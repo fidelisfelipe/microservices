@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {ConversionComponent} from "../component-conversion/conversion.component";
-import {ConversionDetailComponent} from "../conversion-detail/conversion-detail.component";
+import {ConversionDetailComponent} from "../component-conversion-detail/conversion-detail.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },

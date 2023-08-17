@@ -72,4 +72,17 @@ export class ConversionService {
       catchError(this.handleError<TypeConversion>('deleteConversion'))
     );
   }
+
+  searchTypeConversion(term: string): Observable<TypeConversion[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+    return this.http.get<TypeConversion[]>(`${this.typeConversionUrl}/?name=${term}`).pipe(
+      tap(x => x.length ?
+        this.log(`found conversions matching "${term}"`) :
+        this.log(`no conversions matching "${term}"`)),
+      catchError(this.handleError<TypeConversion[]>('searchConversion', []))
+    );
+  }
+
 }
