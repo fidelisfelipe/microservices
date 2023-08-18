@@ -5,7 +5,7 @@ import {ConversionService} from "../services/conversion.service";
 import {Location} from "@angular/common";
 
 @Component({
-  selector: 'app-conversion-detail',
+  selector: 'app-component-conversion-detail',
   templateUrl: './conversion-detail.component.html',
   styleUrls: ['./conversion-detail.component.css']
 })
@@ -23,10 +23,10 @@ export class ConversionDetailComponent implements OnInit{
   }
   getConversion(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
+    if(id)
     this.conversionService.getConversion(id)
       .subscribe(typeConversion => this.typeConversion = typeConversion);
   }
-
 
   goBack() {
     this.location.back();
@@ -37,5 +37,9 @@ export class ConversionDetailComponent implements OnInit{
       this.conversionService.updateConversion(this.typeConversion)
         .subscribe(() => this.goBack());
     }
+  }
+
+  onSubmit() {
+    this.save();
   }
 }

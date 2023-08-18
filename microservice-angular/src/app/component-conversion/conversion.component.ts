@@ -1,8 +1,6 @@
 import {Component,  Input, OnInit} from '@angular/core';
 import {TypeConversion} from "../types/type-conversion";
 import {ConversionService} from "../services/conversion.service";
-import {Observable} from "rxjs";
-import {TYPE_CONVERSION_LIST} from "../mock-type-conversion";
 import {MessageService} from "../services/message.service";
 
 @Component({
@@ -15,7 +13,7 @@ export class ConversionComponent implements OnInit {
   typeConversionList:TypeConversion[] = [];
   @Input() typeConversion?: TypeConversion;
 
-  constructor(private conversionService: ConversionService, private messageService:MessageService) {
+  constructor(private conversionService: ConversionService) {
   }
 
   ngOnInit(): void {

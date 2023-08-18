@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryDataService} from "./data-memory/in-memory-data.service";
 import { ConversionSearchComponent } from './component-conversion-search/conversion-search.component';
+import { ConversionFormComponent } from './component-conversion-form/conversion-form.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ConversionSearchComponent } from './component-conversion-search/convers
     ConversionDetailComponent,
     MessagesComponent,
     ConversionSearchComponent,
+    ConversionFormComponent,
   ],
   imports: [
     BrowserModule,

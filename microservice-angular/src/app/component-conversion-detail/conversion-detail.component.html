@@ -1,18 +1,24 @@
 <div *ngIf="typeConversion">
   <h2>{{typeConversion.name | uppercase}} Details</h2>
-
+  <form (ngSubmit)="onSubmit()" #conversionForm="ngForm">
   <div><span>id: </span>{{typeConversion.id}}</div>
-  <div>
-    <label for="type-name">Type name: </label>
-    <input id="type-name" [(ngModel)]="typeConversion.name" placeholder="Type name"/>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="typeConversion.name" #name="ngModel"/>
   </div>
-
-  <div>
-    <button (click)="goBack()">back</button>
+  <div [hidden]="name.valid || name.pristine"
+       class="alert alert-danger">
+    Name is required
   </div>
   <div>
-    <button type="button" (click)="save()">save</button>
+    <button (click)="goBack()" class="btn">back</button>
   </div>
+  <div>
+    <button type="submit" class="btn btn-success" [disabled]="!conversionForm.form.valid">Submit</button>
+  </div>
+  </form>
 
 </div>
+
+
 
