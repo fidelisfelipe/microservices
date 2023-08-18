@@ -1,43 +1,10 @@
 <div>
 
-  <a routerLink="/conversion-add">Add</a>
-
-  <h2>Type Conversion </h2>
-
-  <app-component-conversion-search (search)="search($event)"></app-component-conversion-search>
-
-
-    <div>
-    <div class="form-group">
-      <label for="new-type">Conversion name: </label>
-      <input id="new-type" #typeName class="form-control"/>
-    </div>
-    <div>
-    <!-- (click) passes input value to add() and then clears the input -->
-    <button type="button" class="btn btn-success" (click)="add(typeName.value); typeName.value=''">
-      Add Conversion
-    </button>
-    </div>
-
-   <p><em>Select a type conversion from the list to see details</em></p>
-
-  <ul class="type-conversion">
-    <li *ngFor="let type of typeConversionList">
-
-      <a routerLink="/conversion/{{type.id}}">
-        <span class="badge">{{type.id}}</span> | {{type.name}}
-      </a>
-      <button type="button" class="delete" title="delete type conversion"
-              (click)="delete(type)">x</button>
-
-    </li>
-  </ul>
-
-  <app-component-conversion-alert
-    [typeConversion]="typeConversion"
-    (notify)="onNotify()">
-  </app-component-conversion-alert>
-
-  <app-component-conversion-detail [typeConversion]="typeConversion"  ></app-component-conversion-detail>
+  <div>
+    <a routerLink="/conversion-add-form">Add with Form</a> |
+    <a routerLink="/conversion-add">Add Simple</a> |
+    <a routerLink="/conversion-list">List</a> |
+    <a routerLink="/conversion-search">Search</a>
+  </div>
 
 </div>

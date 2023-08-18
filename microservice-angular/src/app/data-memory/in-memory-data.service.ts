@@ -19,7 +19,7 @@ export class InMemoryDataService implements InMemoryDbService{
       { id: 7, name: 'AUD', value: 1.55 },
       { id: 8, name: 'CNY', value: 7.71 },
       { id: 9, name: 'HKD', value: 9.23 },
-      { id: 10, name: 'NZD', value: 1.67 }];
+      { id: 10, name: 'BRA', value: 1.67 }];
     return {typeConversionList};
   }
   genId(typeConversionList: { id: number; }[]): number {

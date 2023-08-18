@@ -1,26 +1,29 @@
 import {Component, OnInit} from '@angular/core';
 import {TypeConversion} from "../types/type-conversion";
 import {ConversionService} from "../services/conversion.service";
+import {Location} from "@angular/common";
 
 @Component({
-  selector: 'app-component-conversion-form',
-  templateUrl: './conversion-form.component.html',
-  styleUrls: ['./conversion-form.component.css']
+  selector: 'app-component-conversion-add-form',
+  templateUrl: './conversion-add-form.component.html',
+  styleUrls: ['./conversion-add-form.component.css']
 })
-export class ConversionFormComponent implements OnInit{
+export class ConversionAddFormComponent implements OnInit{
 
   typeConversionList: TypeConversion[] = [];
 
   submitted = false;
-  model: TypeConversion = {id: 0, name: ''};
+  model: TypeConversion = {} as TypeConversion;
 
-  constructor(private conversionService: ConversionService){
+  constructor(private conversionService: ConversionService,
+              public location:Location){
 
   }
 
   onSubmit() {
     this.add(this.model.name);
     this.submitted = true;
+    this.model = {} as TypeConversion;
   }
 
   getConversionList(): void {

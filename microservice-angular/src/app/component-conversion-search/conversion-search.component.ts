@@ -5,6 +5,7 @@ import {ConversionService} from "../services/conversion.service";
 import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-component-conversion-search',
@@ -15,7 +16,8 @@ export class ConversionSearchComponent implements OnInit {
   typeConversionList$!: Observable<TypeConversion[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private conversionService: ConversionService) {
+  constructor(private conversionService: ConversionService,
+              public location: Location) {
 
   }
 

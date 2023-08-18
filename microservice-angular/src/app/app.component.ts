@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {ConversionService} from "./services/conversion.service";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'microservice-angular';
+  constructor(public location: Location) {
+  }
 }

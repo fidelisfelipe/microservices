@@ -1,7 +1,9 @@
-<div id="search-component">
-  <label for="search-box">Conversion Search</label>
+<h2>Search</h2>
+<div class="container">
+  <div class="form-group">
+  <label for="search-box">Search for name</label>
   <input #searchBox id="search-box" (input)="search(searchBox.value)" class="form-control"/>
-
+  </div>
   <ul class="search-result">
     <li *ngFor="let type of typeConversionList$ | async" >
       <a routerLink="/conversion/{{type.id}}">
@@ -9,4 +11,5 @@
       </a>
     </li>
   </ul>
+
 </div>

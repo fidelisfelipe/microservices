@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ComponentConversionFormComponent } from './conversion-form.component';
+import { ComponentConversionFormComponent } from './conversion-add-form.component';
 
 describe('ComponentConversionFormComponent', () => {
   let component: ComponentConversionFormComponent;

@@ -6,23 +6,27 @@ import { ConversionComponent } from './component-conversion/conversion.component
 import { ConversionAlertComponent } from './component-conversion-alert/conversion-alert.component';
 import { AppRoutingModule } from './component-router/app-routing.module';
 import { FormsModule } from "@angular/forms";
-import { ConversionDetailComponent } from './component-conversion-detail/conversion-detail.component';
+import { ConversionEditComponent } from './component-conversion-edit/conversion-edit.component';
 import { MessagesComponent } from './messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
-import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
-import {InMemoryDataService} from "./data-memory/in-memory-data.service";
+import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
+import { InMemoryDataService } from "./data-memory/in-memory-data.service";
 import { ConversionSearchComponent } from './component-conversion-search/conversion-search.component';
-import { ConversionFormComponent } from './component-conversion-form/conversion-form.component';
+import { ConversionAddFormComponent } from './component-conversion-add-form/conversion-add-form.component';
+import { ConversionAddComponent } from './component-conversion-add/conversion-add.component';
+import { ConversionListComponent } from './component-conversion-list/conversion-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConversionComponent,
     ConversionAlertComponent,
-    ConversionDetailComponent,
+    ConversionEditComponent,
     MessagesComponent,
     ConversionSearchComponent,
-    ConversionFormComponent,
+    ConversionAddFormComponent,
+    ConversionAddComponent,
+    ConversionListComponent,
   ],
   imports: [
     BrowserModule,

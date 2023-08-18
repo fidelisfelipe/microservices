@@ -1,0 +1,28 @@
+<h2>List</h2>
+<div class="container">
+
+  <div>
+    <table class="table-header">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let type of typeConversionList">
+          <td>{{type.id}}</td>
+          <td>{{type.name}}</td>
+          <td>
+            <button type="button" class="btn btn-danger" title="delete type conversion"
+                       (click)="delete(type)">Remove</button>
+            <button type="button" class="btn btn-info" routerLink="/conversion/{{type.id}}">
+              Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
