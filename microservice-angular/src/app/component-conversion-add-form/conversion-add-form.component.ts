@@ -15,15 +15,13 @@ export class ConversionAddFormComponent implements OnInit{
   submitted = false;
   model: TypeConversion = {} as TypeConversion;
 
-  constructor(private conversionService: ConversionService,
-              public location:Location){
+  constructor(private conversionService: ConversionService){
 
   }
 
   onSubmit() {
     this.add(this.model.name);
     this.submitted = true;
-    this.model = {} as TypeConversion;
   }
 
   getConversionList(): void {
@@ -43,6 +41,8 @@ export class ConversionAddFormComponent implements OnInit{
     this.conversionService.addConversion({ name } as TypeConversion)
       .subscribe(typeConversion => {
         this.typeConversionList.push(typeConversion);
+        window.alert("Conversion added successfully!");
+
       });
   }
   delete(type: TypeConversion) {

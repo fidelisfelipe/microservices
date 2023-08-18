@@ -15,6 +15,7 @@ import { ConversionSearchComponent } from './component-conversion-search/convers
 import { ConversionAddFormComponent } from './component-conversion-add-form/conversion-add-form.component';
 import { ConversionAddComponent } from './component-conversion-add/conversion-add.component';
 import { ConversionListComponent } from './component-conversion-list/conversion-list.component';
+import {ConversionService} from "./services/conversion.service";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { ConversionListComponent } from './component-conversion-list/conversion-
       InMemoryDataService, { dataEncapsulation: false }
     )
   ],
-  providers: [],
+  providers: [ConversionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
