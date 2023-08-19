@@ -1,7 +1,7 @@
 package com.example.microservices.currencyexchangeservice;
 
+import com.example.microservices.currencyexchangeservice.model.ExchangeValue;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 
 public interface ExchangeValueRepository extends JpaRepository<ExchangeValue, Long> {

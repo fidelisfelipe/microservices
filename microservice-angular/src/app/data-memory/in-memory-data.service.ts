@@ -22,7 +22,7 @@ export class InMemoryDataService implements InMemoryDbService{
       { id: 10, name: 'BRA', value: 1.67 }];
     return {typeConversionList};
   }
-  genId(typeConversionList: { id: number; }[]): number {
+  getId(typeConversionList: { id: number; }[]): number {
     return typeConversionList.length > 0 ? Math.max(...typeConversionList.map(typeConversion => typeConversion.id)) + 1 : 11;
   }
 }

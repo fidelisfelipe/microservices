@@ -11,8 +11,7 @@ import {Location} from "@angular/common";
 export class ConversionListComponent implements OnInit {
 
   typeConversionList:TypeConversion[] = [];
-  constructor(private conversionService: ConversionService,
-              public location:Location) {
+  constructor(private conversionService: ConversionService){
   }
   ngOnInit(): void {
     this.getConversionList();

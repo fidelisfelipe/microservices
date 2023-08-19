@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {TypeConversion} from "../types/type-conversion";
 import {ConversionService} from "../services/conversion.service";
 import {Location} from "@angular/common";
+import {MessageService} from "../services/message.service";
 
 @Component({
   selector: 'app-conversion-add',
@@ -11,6 +12,7 @@ import {Location} from "@angular/common";
 export class ConversionAddComponent {
 
   constructor(private conversionService: ConversionService,
+              private messageService: MessageService,
               public location:Location) {
   }
 
@@ -21,7 +23,7 @@ export class ConversionAddComponent {
     }
     this.conversionService.addConversion({ name } as TypeConversion)
       .subscribe(typeConversion => {
-        console.log()
+        this.messageService.add(`Conversion ${name} added`);
       });
   }
 }

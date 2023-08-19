@@ -11,13 +11,26 @@ import {Location} from "@angular/common";
 })
 export class ConversionComponent implements OnInit {
 
+  typeConversionList: TypeConversion[] = [];
+  from?: TypeConversion;
+  to?: TypeConversion;
+  value?: String;
+  result?: number;
 
-  constructor(public location: Location){
-
+  constructor(private serviceConversion: ConversionService) {
   }
+
 
   ngOnInit(): void {
-
+    this.getConversionList();
   }
 
+  getConversionList(): void {
+    this.serviceConversion.getTypeConversionList()
+      .subscribe(typeConversionList => this.typeConversionList = typeConversionList);
+  }
+
+  onPressConversion() {
+
+  }
 }

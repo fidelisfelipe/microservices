@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TypeConversion} from "../types/type-conversion";
 import {ConversionService} from "../services/conversion.service";
 import {Location} from "@angular/common";
+import {MessageService} from "../services/message.service";
 
 @Component({
   selector: 'app-component-conversion-add-form',
@@ -15,7 +16,8 @@ export class ConversionAddFormComponent implements OnInit{
   submitted = false;
   model: TypeConversion = {} as TypeConversion;
 
-  constructor(private conversionService: ConversionService){
+  constructor(private conversionService: ConversionService,
+              private messageService: MessageService) {
 
   }
 

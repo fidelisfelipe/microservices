@@ -15,7 +15,7 @@ import { ConversionSearchComponent } from './component-conversion-search/convers
 import { ConversionAddFormComponent } from './component-conversion-add-form/conversion-add-form.component';
 import { ConversionAddComponent } from './component-conversion-add/conversion-add.component';
 import { ConversionListComponent } from './component-conversion-list/conversion-list.component';
-import {ConversionService} from "./services/conversion.service";
+import { ConversionService } from "./services/conversion.service";
 
 @NgModule({
   declarations: [
@@ -34,9 +34,9 @@ import {ConversionService} from "./services/conversion.service";
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+    //HttpClientInMemoryWebApiModule.forRoot(
+    //  InMemoryDataService, { dataEncapsulation: false }
+    //)
   ],
   providers: [ConversionService],
   bootstrap: [AppComponent]

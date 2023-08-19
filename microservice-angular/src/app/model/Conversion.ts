@@ -2,9 +2,9 @@ import {TypeConversion} from "../types/type-conversion";
 
 export class Conversion{
   constructor(
-        public id: number,
+        public value: string,
         public from: TypeConversion,
         public to: TypeConversion,
-        public date: Date
+        public result: string
     ){}
 }
