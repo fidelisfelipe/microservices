@@ -1,18 +1,16 @@
-package com.example.microservices.currencyexchangeservice;
+package com.example.microservices.currencyexchangeservice.controller;
 
-import com.example.microservices.currencyexchangeservice.model.CurrencyType;
 import com.example.microservices.currencyexchangeservice.model.ExchangeValue;
 import com.example.microservices.currencyexchangeservice.repository.CurrencyTypeRepository;
 import com.example.microservices.currencyexchangeservice.repository.ExchangeValueRepository;
+import com.example.microservices.currencyexchangeservice.response.CurrencyResponse;
+import com.example.microservices.currencyexchangeservice.response.CurrencyTypeResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
