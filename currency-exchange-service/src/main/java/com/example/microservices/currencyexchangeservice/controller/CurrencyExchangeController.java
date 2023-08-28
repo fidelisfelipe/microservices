@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+
 @RestController
 public class CurrencyExchangeController {
 
@@ -49,5 +49,17 @@ public class CurrencyExchangeController {
         }).collect(Collectors.toList());
         var response = CurrencyResponse.builder().typeList(currenseTypeResponseList).build();
         return response;
+    }
+    @DeleteMapping("/currency-exchange/type/{id}")
+    public void removeExchangeType(@PathVariable("id") Long id){
+        logger.info("removeExchangeType called");
+        currencyTypeRepository.deleteById(id);
+    }
+    @GetMapping("/currency-exchange/type/{id}")
+    public CurrencyTypeResponse getExchangeType(@PathVariable("id") Long id){
+        logger.info("getExchangeType called");
+        var type = currencyTypeRepository.findById(id);
+        var typeReturn = CurrencyTypeResponse.builder().id(type.get().getId()).name(type.get().getName()).build();
+        return typeReturn;
     }
 }

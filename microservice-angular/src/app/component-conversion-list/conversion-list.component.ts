@@ -17,8 +17,10 @@ export class ConversionListComponent implements OnInit {
     this.getConversionList();
   }
   delete(type: TypeConversion) {
-    this.typeConversionList = this.typeConversionList.filter((h) => h !== type);
-    this.conversionService.deleteConversion(type).subscribe();
+
+    this.conversionService.deleteConversion(type).subscribe(
+      () => this.typeConversionList = this.typeConversionList.filter((h) => h !== type)
+    );
   }
   getConversionList(): void {
     this.conversionService.getTypeConversionList()

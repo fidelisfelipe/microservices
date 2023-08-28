@@ -11,7 +11,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class ConversionService {
 
-  private typeConversionUrl = 'http://localhost:8765/currency-conversion-service/currency-conversion-feign/type/list';
+  private typeConversionUrl = 'http://localhost:8765/currency-conversion-service/currency-conversion-feign/type';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -21,7 +21,7 @@ export class ConversionService {
     private messageService:MessageService) { }
 
   getTypeConversionList(): Observable<TypeConversion[]> {
-    return this.http.get<TypeConversion[]>(this.typeConversionUrl)
+    return this.http.get<TypeConversion[]>(this.typeConversionUrl+"/list")
       .pipe(
         tap(_ => this.log('fetched type conversion list')),
         catchError(this.handleError<TypeConversion[]>('getTypeConversionList', []))
@@ -62,9 +62,12 @@ export class ConversionService {
   }
 
   deleteConversion(type: TypeConversion) {
+    const httpOptions = {
+      headers: new HttpHeaders()
+    };
     const url = `${this.typeConversionUrl}/${type.id}`;
 
-    return this.http.delete<TypeConversion>(url, this.httpOptions).pipe(
+    return this.http.delete<TypeConversion>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted conversion id=${type.id}`)),
       catchError(this.handleError<TypeConversion>('deleteConversion'))
     );
