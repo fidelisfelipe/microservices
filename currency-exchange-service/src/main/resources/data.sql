@@ -13,6 +13,6 @@ values(10006, 'BRL','USD', 25, 0);
 insert into exchange_value(id, currency_from, currency_to, conversion_multiple, port)
 values(10007, 'USD','BRL', 25, 0);
 
-insert into currency_type(id, name)
-values(1, 'INR'), (2, 'USD'), (3, 'EUR'), (4, 'AUD'), (5, 'BRL');
+insert into currency_type(name)
+values('INR'), ('USD'), ('EUR'), ('AUD'), ('BRL');
 

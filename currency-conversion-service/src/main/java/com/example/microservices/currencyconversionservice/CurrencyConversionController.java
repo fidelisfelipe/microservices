@@ -67,4 +67,15 @@ public class CurrencyConversionController {
         logger.info("getExchangeType by id called {}", id);
         return proxy.getCurrencyType(id);
     }
+
+    @PostMapping("/currency-conversion-feign/type")
+    public CurrencyTypeResponse newTypes(@RequestBody CurrencyTypeRequest type){
+        logger.info("new type by id called {}", type.getName());
+        return proxy.newCurrencyType(type);
+    }
+    @PutMapping("/currency-conversion-feign/type")
+    public CurrencyTypeResponse updateType(@RequestBody CurrencyTypeRequest type){
+        logger.info("update type by id called {}", type.getId());
+        return proxy.updateType(type);
+    }
 }
