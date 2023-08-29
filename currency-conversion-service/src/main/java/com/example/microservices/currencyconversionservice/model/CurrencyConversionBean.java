@@ -1,4 +1,4 @@
-package com.example.microservices.currencyconversionservice;
+package com.example.microservices.currencyconversionservice.model;
 
 import java.math.BigDecimal;
 

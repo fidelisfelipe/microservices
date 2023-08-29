@@ -1,4 +1,4 @@
-package com.example.microservices.currencyconversionservice;
+package com.example.microservices.currencyconversionservice.config;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

@@ -1,5 +1,9 @@
-package com.example.microservices.currencyconversionservice;
+package com.example.microservices.currencyconversionservice.proxy;
 
+import com.example.microservices.currencyconversionservice.model.CurrencyConversionBean;
+import com.example.microservices.currencyconversionservice.request.CurrencyTypeRequest;
+import com.example.microservices.currencyconversionservice.response.CurrencyResponse;
+import com.example.microservices.currencyconversionservice.response.CurrencyTypeResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

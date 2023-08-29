@@ -1,4 +1,4 @@
-package com.example.microservices.currencyconversionservice;
+package com.example.microservices.currencyconversionservice.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

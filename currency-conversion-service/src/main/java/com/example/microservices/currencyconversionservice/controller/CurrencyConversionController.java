@@ -1,5 +1,9 @@
-package com.example.microservices.currencyconversionservice;
+package com.example.microservices.currencyconversionservice.controller;
 
+import com.example.microservices.currencyconversionservice.model.CurrencyConversionBean;
+import com.example.microservices.currencyconversionservice.proxy.CurrencyExchangeServiceProxy;
+import com.example.microservices.currencyconversionservice.request.CurrencyTypeRequest;
+import com.example.microservices.currencyconversionservice.response.CurrencyTypeResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +31,8 @@ public class CurrencyConversionController {
 
     @GetMapping("/currency-conversion/from/{from}/to/{to}/quantity/{quantity}")
     public CurrencyConversionBean convertCurrency(@PathVariable("from") String from,
-            @PathVariable("to") String to,
-            @PathVariable("quantity") BigDecimal quantity){
+                                                  @PathVariable("to") String to,
+                                                  @PathVariable("quantity") BigDecimal quantity){
         Map<String, String> uriVariables = new HashMap<>();
         uriVariables.put("from", from);
         uriVariables.put("to", to);
@@ -74,8 +78,11 @@ public class CurrencyConversionController {
         return proxy.newCurrencyType(type);
     }
     @PutMapping("/currency-conversion-feign/type")
-    public CurrencyTypeResponse updateType(@RequestBody CurrencyTypeRequest type){
+    public ResponseEntity<CurrencyTypeResponse> updateType(@RequestBody CurrencyTypeRequest type){
         logger.info("update type by id called {}", type.getId());
-        return proxy.updateType(type);
+
+        CurrencyTypeResponse typeResponse = proxy.updateType(type);
+
+        return ResponseEntity.status(HttpStatus.OK).body(typeResponse);
     }
 }

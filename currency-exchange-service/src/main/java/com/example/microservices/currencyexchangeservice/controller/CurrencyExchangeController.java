@@ -65,7 +65,7 @@ public class CurrencyExchangeController {
         return typeReturn;
     }
     @PutMapping("/currency-exchange/type")
-    public void updateType(@RequestBody CurrencyTypeRequest typeRequest){
+    public CurrencyTypeResponse updateType(@RequestBody CurrencyTypeRequest typeRequest){
         logger.info("updateType called");
         var type = currencyTypeRepository.findById(typeRequest.getId());
         if(!type.isPresent()){
@@ -74,6 +74,10 @@ public class CurrencyExchangeController {
         var typeUpdate = CurrencyType.builder().id(type.get().getId()).name(typeRequest.getName()).build();
 
         currencyTypeRepository.save(typeUpdate);
+
+        var typeReturn = CurrencyTypeResponse.builder().id(typeUpdate.getId()).name(typeUpdate.getName()).build();
+
+        return typeReturn;
     }
 
     @PostMapping("/currency-exchange/type")
