@@ -1,9 +1,12 @@
 package com.example.microservices.currencyconversionservice.controller;
 
 import com.example.microservices.currencyconversionservice.model.CurrencyConversionBean;
+import com.example.microservices.currencyconversionservice.msg.MessageReceiver;
+import com.example.microservices.currencyconversionservice.msg.MessageSender;
 import com.example.microservices.currencyconversionservice.proxy.CurrencyExchangeServiceProxy;
 import com.example.microservices.currencyconversionservice.request.CurrencyTypeRequest;
 import com.example.microservices.currencyconversionservice.response.CurrencyTypeResponse;
+import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +17,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+@Log4j2
 @RestController
 public class CurrencyConversionController {
 
@@ -28,6 +34,12 @@ public class CurrencyConversionController {
     
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private MessageReceiver messageReceiver;
+
+    @Autowired
+    private MessageSender messageSender;
 
     @GetMapping("/currency-conversion/from/{from}/to/{to}/quantity/{quantity}")
     public CurrencyConversionBean convertCurrency(@PathVariable("from") String from,
@@ -81,8 +93,22 @@ public class CurrencyConversionController {
     public ResponseEntity<CurrencyTypeResponse> updateType(@RequestBody CurrencyTypeRequest type){
         logger.info("update type by id called {}", type.getId());
 
-        CurrencyTypeResponse typeResponse = proxy.updateType(type);
+        var typeResponse = proxy.updateType(type);
 
         return ResponseEntity.status(HttpStatus.OK).body(typeResponse);
+    }
+
+    @GetMapping("/currency-conversion-feign/receiver/msg")
+    public ResponseEntity getMsg(){
+        logger.info("getMsg {}");
+
+        return ResponseEntity.status(HttpStatus.OK).body("msg: "+messageReceiver.getMsg());
+    }
+
+    @GetMapping("/currency-conversion-feign/send/msg")
+    public ResponseEntity sendMsg(){
+        logger.info("sendMsg...");
+        messageSender.sendMessage("test msg in "+ Instant.now().toString());
+        return ResponseEntity.status(HttpStatus.OK).body("msg sended!");
     }
 }

@@ -18,6 +18,7 @@ For further reference, please consider the following sections:
 * [Eureka Discovery Client](https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/#service-discovery-eureka-clients)
 * [Gateway](https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/)
 * [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/2.7.7/reference/htmlsingle/#actuator)
+* [Spring Boot Docker](https://docs.spring.io/spring-boot/docs/2.7.7/reference/htmlsingle/#build-image)
 
 
 ### Guides
@@ -66,4 +67,9 @@ The following guides illustrate how to use some features concretely:
 	```
 		docker run -d -p 9411:9411 openzipkin/zipkin
 	```
+ 
+   * spring boot docker
+     ```
+        mvn spring-boot:build-image -DskipTests
+     ```
    

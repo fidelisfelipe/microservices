@@ -15,7 +15,7 @@ services:
       - currency-network
     depends_on:
       - naming-server
-      - api-gateway-service
+      - api-gateway-server
 
   currency-conversion-service:
     image: fidelisfelipe/currency-conversion-service:0.0.1-SNAPSHOT
@@ -46,17 +46,17 @@ services:
       - currency-network
     depends_on:
       - naming-server
-      - config-server-service
+      - config-server
 
-  config-server-service:
-    image: fidelisfelipe/config-server-service:0.0.1-SNAPSHOT
+  config-server:
+    image: fidelisfelipe/config-server:0.0.1-SNAPSHOT
     mem_limit: 700m
     ports:
       - "8888:8888"
     networks:
       - currency-network
     depends_on:
-      - api-gateway-service
+      - api-gateway-server
 
   naming-server:
     image: fidelisfelipe/naming-server:0.0.1-SNAPSHOT
@@ -66,10 +66,10 @@ services:
     networks:
       - currency-network
     depends_on:
-      - api-gateway-service
+      - api-gateway-server
 
-  api-gateway-service:
-    image: fidelisfelipe/api-gateway-service:0.0.1-SNAPSHOT
+  api-gateway-server:
+    image: fidelisfelipe/api-gateway-server:0.0.1-SNAPSHOT
     mem_limit: 700m
     ports:
       - "8765:8765"
@@ -89,67 +89,14 @@ services:
       - currency-network
     restart: always #Restart if there is a problem starting up
 
-#  api-gateway-service:
-#    image: fidelisfelipe/api-gateway-service:0.0.1-SNAPSHOT
-#    mem_limit: 700m
-#    ports:
-#      - "8765:8765"
-#    networks:
-#      - currency-network
-#    depends_on:
-#      - naming-server
-#    environment:
-#      EUREKA.CLIENT.SERVICE-URL.DEFAULT-ZONE: http://naming-server:8761/eureka
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - currency-network
+
 networks:
   currency-network:
 
-#  zipkin-server:
-#    image: openzipkin/zipkin:2.23
-#    mem_limit: 300m
-#    ports:
-#      - "9411:9411"
-#    networks:
-#      - currency-network
-#    restart: always
-
-#  currency-conversion-service:
-#    image: fidelisfelipe/currency-conversion-service:0.0.1-SNAPSHOT
-#    mem_limit: 700m
-#    ports:
-#      - "8100:8100"
-#    networks:
-#      - currency-network
-#    depends_on:
-#      - config-server-service
-#      - naming-server-service
-#      - api-gateway-service
-#    environment:
-#      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server-service:8761
-
-#  limits-service:
-#    image: fidelisfelipe/limits-service:0.0.1-SNAPSHOT
-#    mem_limit: 700m
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - currency-network
-#    depends_on:
-#     - config-server-service
-#      - naming-server-service
-#      - api-gateway-service
-
-#  config-server-service:
-#    image: fidelisfelipe/config-server-service:0.0.1-SNAPSHOT
-#    mem_limit: 700m
-#    ports:
-#      - "8888:8888"
-#    networks:
-#      - currency-network
-
-#  api-gateway-service:
-#    image: fidelisfelipe/api-gateway-service:0.0.1-SNAPSHOT
-#    mem_limit: 700m
-#    ports:
-#      - "8765:8765"
-#    networks:
-#      - currency-network
