@@ -2,7 +2,7 @@ package com.example.microservices.workflow.bean;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static com.example.microservices.workflow.IsFluxoStatesFinalizado.isFluxoStatesFinalizado;
@@ -28,96 +28,116 @@ public class FluxoStatesTest {
     //a lista é do tamanho esperado?
     @Test
     public void givenAList_whenChecksSize_thenCorrect() {
-        List<FluxoEvents> hamcrestMatchers = Arrays.stream(FluxoEvents.values()).toList();
-        assertThat(hamcrestMatchers, hasSize(3));
+        var listCurrent = Arrays.asList(FlowEvents.CRIAR, FlowEvents.INICIAR, FlowEvents.FINALIZAR, FlowEvents.CANCELAR);
+
+        List<FlowEvents> hamcrestMatchers = Arrays.stream(FlowEvents.values()).toList();
+        assertThat(hamcrestMatchers, hasSize(listCurrent.size()));
     }
 
     //contém determinados membros, independentemente da ordem
     @Test
     public void givenAListAndValues_whenChecksListForGivenValues_thenCorrect() {
-        List<FluxoEvents> hamcrestMatchers = Arrays.asList(
-                FluxoEvents.FINALIZAR, FluxoEvents.INICIAR, FluxoEvents.CANCELAR);
+        List<FlowEvents> hamcrestMatchers = Arrays.asList(
+                FlowEvents.FINALIZAR, FlowEvents.INICIAR, FlowEvents.CANCELAR);
         assertThat(hamcrestMatchers,
-                containsInAnyOrder(FluxoEvents.INICIAR, FluxoEvents.CANCELAR, FluxoEvents.FINALIZAR));
+                containsInAnyOrder(FlowEvents.INICIAR, FlowEvents.CANCELAR, FlowEvents.FINALIZAR));
     }
 
     @Test//o toString possui estes valores?
     public void givenBean_whenToStringReturnsRequiredString_thenCorrect(){
-        var fluxo = Fluxo.builder()
-                .id(1L)
-                .state(FluxoStates.CRIADO.name())
-                .event(FluxoEvents.INICIAR.name())
+        var flow = Flow.builder()
+                .id(UUID.randomUUID().toString())
+                .state(FlowStates.CRIADO.name())
+                .event(FlowEvents.INICIAR.name())
                 .dataType(DataKeys.DATA_TYPE.name())
-                .localDate(LocalDate.now()).build();
-        String str=fluxo.toString();
-        assertThat(fluxo,hasToString(str));
+                .dateTime(LocalDateTime.now()).build();
+        String str = flow.toString();
+        assertThat(flow,hasToString(str));
     }
 
     @Test//possui estas propriedades?
-    public void givenBean_whenHasValue_thenCorrect(){
-        var fluxo = Fluxo.builder()
-                .id(1L)
-                .state(FluxoStates.CRIADO.name())
-                .event(FluxoEvents.INICIAR.name())
+    public void givenBean_Flow_whenHasValue_thenCorrect(){
+        var flow = Flow.builder()
+                .id(UUID.randomUUID().toString())
+                .state(FlowStates.CRIADO.name())
+                .event(FlowEvents.INICIAR.name())
                 .dataType(DataKeys.DATA_TYPE.name())
-                .localDate(LocalDate.now()).build();
+                .dateTime(LocalDateTime.now()).build();
 
-        assertThat(fluxo, hasProperty("state"));
-        assertThat(fluxo, hasProperty("event"));
-        assertThat(fluxo, hasProperty("dataType"));
-        assertThat(fluxo, hasProperty("localDate"));
+        assertThat(flow, hasProperty("state"));
+        assertThat(flow, hasProperty("event"));
+        assertThat(flow, hasProperty("dataType"));
+        assertThat(flow, hasProperty("dateTime"));
+    }
+
+    @Test//possui estas propriedades?
+    public void givenBean_History_whenHasValue_thenCorrect(){
+        var history = History.builder()
+                .id(1l)
+                .state(FlowStates.CRIADO.name())
+                .flow(new Flow())
+                .dateTime(LocalDateTime.now()).build();
+
+        assertThat(history, hasProperty("id"));
+        assertThat(history, hasProperty("state"));
+        assertThat(history, hasProperty("flow"));
+        assertThat(history, hasProperty("dateTime"));
     }
 
     @Test//foi inicializado com este valor?
     public void givenBean_whenHasCorrectValue_thenCorrect() {
-        var fluxo = Fluxo.builder()
-                .state(FluxoStates.CRIADO.name())
+        var fluxo = Flow.builder()
+                .state(FlowStates.CRIADO.name())
                 .build();
         assertThat(fluxo, hasProperty("state", equalTo("CRIADO")));
     }
 
     @Test//é um?
     public void given2Classes_whenOneInheritsFromOther_thenCorrect(){
-        assertThat(Fluxo.class,typeCompatibleWith(AbstractEntity.class));
+        assertThat(Flow.class,typeCompatibleWith(AbstractEntity.class));
     }
 
     @Test//ambos foram construidos com os mesmos valores?
     public void given2Beans_whenHavingSameValues_thenCorrect() {
-        var fluxo1 = Fluxo.builder()
-                .state(FluxoStates.CRIADO.name())
+        var uuid = UUID.randomUUID().toString();
+
+        var flow = Flow.builder()
+                .id(uuid)
+                .state(FlowStates.CRIADO.name())
                 .build();
-        var fluxo2 = Fluxo.builder()
-                .state(FluxoStates.CRIADO.name())
+        var flow2 = Flow.builder()
+                .id(uuid)
+                .state(FlowStates.CRIADO.name())
                 .build();
-        assertThat(fluxo1, samePropertyValuesAs(fluxo2));
+        assertThat(flow, samePropertyValuesAs(flow2));
     }
     @Test//os membros da coleção estão em determinada ordem?
     public void givenAListAndValues_whenChecksListForGivenValuesWithOrder_thenCorrectFluxoStates() {
-        List<FluxoStates> hamcrestMatchers = Arrays.asList(
-                FluxoStates.CRIADO, FluxoStates.INICIADO, FluxoStates.FINALIZADO, FluxoStates.CANCELADO);
+        List<FlowStates> hamcrestMatchers = Arrays.asList(
+                FlowStates.CRIADO, FlowStates.INICIADO, FlowStates.FINALIZADO, FlowStates.CANCELADO);
         assertThat(hamcrestMatchers,
-                contains(FluxoStates.CRIADO, FluxoStates.INICIADO, FluxoStates.FINALIZADO, FluxoStates.CANCELADO));
+                contains(FlowStates.CRIADO, FlowStates.INICIADO, FlowStates.FINALIZADO, FlowStates.CANCELADO));
     }
     @Test//os membros da coleção estão em determinada ordem?
     public void givenAListAndValues_whenChecksListForGivenValuesWithOrder_thenCorrectFluxoEvents() {
-        List<FluxoEvents> hamcrestMatchers = Arrays.asList(
-                FluxoEvents.INICIAR, FluxoEvents.FINALIZAR, FluxoEvents.CANCELAR);
+        List<FlowEvents> hamcrestMatchers = Arrays.asList(
+                FlowEvents.INICIAR, FlowEvents.FINALIZAR, FlowEvents.CANCELAR);
         assertThat(hamcrestMatchers,
-                contains(FluxoEvents.INICIAR, FluxoEvents.FINALIZAR, FluxoEvents.CANCELAR));
+                contains(FlowEvents.INICIAR, FlowEvents.FINALIZAR, FlowEvents.CANCELAR));
     }
 
     //abordagens distintas de contains - begin
 
     @Test//contém este item na lista?
     public void givenArrayAndValue_whenValueFoundInArray_thenCorrect() {
-        FluxoStates[] hamcrestMatchers = FluxoStates.values();
-        assertThat(hamcrestMatchers, hasItemInArray(FluxoStates.CRIADO));
+        FlowStates[] hamcrestMatchers = FlowStates.values();
+        assertThat(hamcrestMatchers, hasItemInArray(FlowStates.CRIADO));
     }
 
     @Test//contém este item na lista?
     public void givenValueAndArray_whenValueIsOneOfArrayElements_thenCorrect() {
-        FluxoEvents[] hamcrestMatchers = FluxoEvents.values();
-        assertThat(FluxoEvents.INICIAR, isOneOf(hamcrestMatchers));
+        FlowEvents[] hamcrestMatchers = FlowEvents.values();
+        assertThat(FlowEvents.INICIAR, isOneOf(hamcrestMatchers));
     }
 
     @Test//contém este item na lista?
@@ -131,63 +151,63 @@ public class FluxoStatesTest {
     public void givenArrayAndValues_whenValuesFoundInArray_thenCorrect() {
         DataKeys[] hamcrestMatchers = DataKeys.values();
         assertThat(hamcrestMatchers,
-                arrayContainingInAnyOrder(DataKeys.STATE, DataKeys.DATA_TYPE, DataKeys.ID_FLUXO));
+                arrayContainingInAnyOrder(DataKeys.STATE, DataKeys.DATA_TYPE, DataKeys.ID_FLOW));
     }
 
     @Test//contém itens na lista em determinada ordem?
     public void givenArrayAndValues_whenValuesFoundInArrayInOrder_thenCorrect() {
-        FluxoEvents[] hamcrestMatchers = FluxoEvents.values();
+        FlowEvents[] hamcrestMatchers = FlowEvents.values();
         assertThat(hamcrestMatchers,
-                arrayContaining(FluxoEvents.INICIAR, FluxoEvents.FINALIZAR, FluxoEvents.CANCELAR));
+                arrayContaining(FlowEvents.CRIAR, FlowEvents.INICIAR, FlowEvents.FINALIZAR, FlowEvents.CANCELAR));
     }
 
     @Test//contém uma determinada chave no mapa?
     public void givenMapAndKey_whenKeyFoundInMap_thenCorrect() {
-        Map<FluxoStates, FluxoEvents> map = new HashMap<>();
-        map.put(FluxoStates.CRIADO, FluxoEvents.INICIAR);
-        assertThat(map, hasKey(FluxoStates.CRIADO));
+        Map<FlowStates, FlowEvents> map = new HashMap<>();
+        map.put(FlowStates.CRIADO, FlowEvents.INICIAR);
+        assertThat(map, hasKey(FlowStates.CRIADO));
     }
 
     @Test//contém um valor no mapa?
     public void givenMapAndValue_whenValueFoundInMap_thenCorrect() {
-        Map<FluxoStates, FluxoEvents> map = new HashMap<>();
-        map.put(FluxoStates.CRIADO, FluxoEvents.INICIAR);
-        assertThat(map, hasValue(FluxoEvents.INICIAR));
+        Map<FlowStates, FlowEvents> map = new HashMap<>();
+        map.put(FlowStates.CRIADO, FlowEvents.INICIAR);
+        assertThat(map, hasValue(FlowEvents.INICIAR));
     }
 
     @Test//contém uma entrada chave e valor no mapa?
     public void givenMapAndEntry_whenEntryFoundInMap_thenCorrect() {
-        Map<FluxoStates, FluxoEvents> map = new HashMap<>();
-        map.put(FluxoStates.CRIADO, FluxoEvents.INICIAR);
-        assertThat(map, hasEntry(FluxoStates.CRIADO, FluxoEvents.INICIAR));
+        Map<FlowStates, FlowEvents> map = new HashMap<>();
+        map.put(FlowStates.CRIADO, FlowEvents.INICIAR);
+        assertThat(map, hasEntry(FlowStates.CRIADO, FlowEvents.INICIAR));
     }
 
     @Test//contém um ou outro?//OR
     public void givenString_whenMeetsAnyOfGivenConditions_thenCorrect() {
-        Map<FluxoStates, FluxoEvents> map = new HashMap<>();
-        map.put(FluxoStates.CRIADO, FluxoEvents.INICIAR);
+        Map<FlowStates, FlowEvents> map = new HashMap<>();
+        map.put(FlowStates.CRIADO, FlowEvents.INICIAR);
 
         assertThat(map, anyOf(
-                hasValue(FluxoEvents.INICIAR),
-                hasValue(FluxoEvents.FINALIZAR),
-                hasValue(FluxoEvents.CANCELAR)));
+                hasValue(FlowEvents.INICIAR),
+                hasValue(FlowEvents.FINALIZAR),
+                hasValue(FlowEvents.CANCELAR)));
     }
 
     @Test//contém todos outro?//AND
     public void givenString_whenMeetsAllOfGivenConditions_thenCorrect() {
-        Map<FluxoStates, FluxoEvents> map = new HashMap<>();
-        map.put(FluxoStates.CRIADO, FluxoEvents.INICIAR);
-        map.put(FluxoStates.FINALIZADO, FluxoEvents.FINALIZAR);
-        map.put(FluxoStates.CANCELADO, FluxoEvents.CANCELAR);
+        Map<FlowStates, FlowEvents> map = new HashMap<>();
+        map.put(FlowStates.CRIADO, FlowEvents.INICIAR);
+        map.put(FlowStates.FINALIZADO, FlowEvents.FINALIZAR);
+        map.put(FlowStates.CANCELADO, FlowEvents.CANCELAR);
         assertThat(map, allOf(
-                hasValue(FluxoEvents.INICIAR),
-                hasValue(FluxoEvents.FINALIZAR),
-                hasValue(FluxoEvents.CANCELAR)));
+                hasValue(FlowEvents.INICIAR),
+                hasValue(FlowEvents.FINALIZAR),
+                hasValue(FlowEvents.CANCELAR)));
     }
 
     //Personalizando Matchers
     @Test
     public void givenInteger_whenAPositiveValue_thenCorrect() {
-        assertThat(FluxoStates.FINALIZADO, isFluxoStatesFinalizado());
+        assertThat(FlowStates.FINALIZADO, isFluxoStatesFinalizado());
     }
 }

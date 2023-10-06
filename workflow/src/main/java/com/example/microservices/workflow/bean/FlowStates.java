@@ -1,5 +1,5 @@
 package com.example.microservices.workflow.bean;
 
-public enum FluxoStates {
+public enum FlowStates {
     CRIADO, INICIADO, FINALIZADO, CANCELADO;
 }

@@ -13,12 +13,13 @@ import org.springframework.statemachine.support.DefaultStateMachineContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class FluxoServiceImpl implements FlowService {
+public class FlowServiceImpl implements FlowService {
     public static final String DATA_TYPE = "dataType";
-    public static final String ID_FLOW = "idFluxo";
+    public static final String ID_FLOW = "idFlow";
     public static final String STATE = "state";
 
     private final StateMachineRepository repository;
@@ -32,7 +33,7 @@ public class FluxoServiceImpl implements FlowService {
     }
 
     @Override
-    public Optional<Flow> findById(Long id) {
+    public Optional<Flow> findById(String id) {
         return repository.findById(id);
     }
 
@@ -40,12 +41,12 @@ public class FluxoServiceImpl implements FlowService {
     public boolean sendEvent(Flow flow){
         StateMachine<FlowStates, FlowEvents> sm = build(flow);
         //set data for guard verify
-        sm.getExtendedState().getVariables().put(FluxoServiceImpl.DATA_TYPE,flow.getDataType());
+        sm.getExtendedState().getVariables().put(FlowServiceImpl.DATA_TYPE,flow.getDataType());
         //set event
         var msg = MessageBuilder.withPayload(FlowEvents.valueOf(flow.getEvent()))
                 //set headers
-                .setHeader(FluxoServiceImpl.ID_FLOW,flow.getId())
-                .setHeader(FluxoServiceImpl.STATE,flow.getState())
+                .setHeader(FlowServiceImpl.ID_FLOW,flow.getId())
+                .setHeader(FlowServiceImpl.STATE,flow.getState())
                 .build();
 
         return sm.sendEvent(msg);

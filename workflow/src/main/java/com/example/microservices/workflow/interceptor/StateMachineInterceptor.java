@@ -1,8 +1,8 @@
 package com.example.microservices.workflow.interceptor;
 
 import com.example.microservices.workflow.bean.DataKeys;
-import com.example.microservices.workflow.bean.FluxoEvents;
-import com.example.microservices.workflow.bean.FluxoStates;
+import com.example.microservices.workflow.bean.FlowEvents;
+import com.example.microservices.workflow.bean.FlowStates;
 import com.example.microservices.workflow.bean.History;
 import com.example.microservices.workflow.repository.StateMachineHistoryRepository;
 import com.example.microservices.workflow.repository.StateMachineRepository;
@@ -15,35 +15,37 @@ import org.springframework.statemachine.support.StateMachineInterceptorAdapter;
 import org.springframework.statemachine.transition.Transition;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class StateMachineInterceptor extends StateMachineInterceptorAdapter<FluxoStates, FluxoEvents> {
+public class StateMachineInterceptor extends StateMachineInterceptorAdapter<FlowStates, FlowEvents> {
     private final StateMachineRepository repository;
     private final StateMachineHistoryRepository historyRepository;
     @Override
-    public void preStateChange( State<FluxoStates,
-                                    FluxoEvents> state,
-                                Message<FluxoEvents> message,
-                                Transition<FluxoStates,
-                                FluxoEvents> transition,
-                                StateMachine<FluxoStates,
-                                FluxoEvents> stateMachine,
-                                StateMachine<FluxoStates,
-                                        FluxoEvents> rootStateMachine) {
+    public void preStateChange( State<FlowStates,
+            FlowEvents> state,
+                                Message<FlowEvents> message,
+                                Transition<FlowStates,
+                                        FlowEvents> transition,
+                                StateMachine<FlowStates,
+                                        FlowEvents> stateMachine,
+                                StateMachine<FlowStates,
+                                        FlowEvents> rootStateMachine) {
         log.info("pre state change");
-        var fluxoId = Long.class.cast(message.getHeaders().get(DataKeys.ID_FLUXO.getName()));
-        var fluxo =  repository.findById(fluxoId);
-        if(fluxo.isPresent()){
-            fluxo.get().setState(state.getId().name());
-            fluxo.get().setDataType(String.valueOf(message.getHeaders().get(DataKeys.ID_FLUXO.getName())));
-            log.info("pre state change - save fluxo {}", fluxo);
-            repository.save(fluxo.get());
-            historyRepository.save(History.builder().fluxo(fluxo.get()).state(fluxo.get().getState()).build());
+        var id = String.class.cast(message.getHeaders().get(DataKeys.ID_FLOW.getName()));
+        var flow =  repository.findById(id);
+        if(flow.isPresent()){
+            flow.get().setState(state.getId().name());
+
+            log.info("pre state change - save flow {}", flow);
+            repository.save(flow.get());
+            historyRepository.save(History.builder().flow(flow.get()).state(flow.get().getState()).build());
         }
     }
     @Override
-    public Exception stateMachineError(StateMachine<FluxoStates, FluxoEvents> stateMachine, Exception exception) {
+    public Exception stateMachineError(StateMachine<FlowStates, FlowEvents> stateMachine, Exception exception) {
         log.error("state machine erro",exception);
         return exception;
     }

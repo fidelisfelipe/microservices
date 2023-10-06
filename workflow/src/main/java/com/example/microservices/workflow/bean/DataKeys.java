@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum DataKeys {
     DATA_TYPE("dataType"),
-    ID_FLUXO("idFluxo"),
+    ID_FLOW("idFlow"),
     STATE("state");
 
     @Getter
