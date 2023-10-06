@@ -1,5 +1,5 @@
 package com.example.microservices.workflow.bean;
 
 public enum FluxoEvents {
-    INICIAR, FINALIZAR, CANCELAR;
+    CRIAR, INICIAR, FINALIZAR, CANCELAR;
 }

@@ -1,17 +1,18 @@
 package com.example.microservices.workflow.service;
 
-import com.example.microservices.workflow.bean.Fluxo;
+import com.example.microservices.workflow.bean.Flow;
 import com.example.microservices.workflow.bean.FluxoEvents;
 import com.example.microservices.workflow.bean.FluxoStates;
 import org.springframework.statemachine.StateMachine;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public interface FluxoService {
-    Fluxo save(Fluxo entity);
+    Flow save(Flow entity);
 
-    Optional<Fluxo> findById(Long id);
-    StateMachine<FluxoStates, FluxoEvents> build(final Fluxo fluxo);
+    Optional<Flow> findById(UUID id);
+    StateMachine<FluxoStates, FluxoEvents> build(final Flow flow);
 
-    boolean sendEvent(Fluxo fluxo);
+    boolean sendEvent(Flow flow);
 }

@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -16,8 +18,8 @@ import java.time.LocalDate;
 public class Fluxo extends AbstractEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private LocalDate localDate;
+    private UUID id;
+    private LocalDateTime localDateTime;
     private String state;
 
     @Transient

@@ -1,8 +1,8 @@
 package com.example.microservices.workflow.service;
 
-import com.example.microservices.workflow.bean.Fluxo;
-import com.example.microservices.workflow.bean.FluxoEvents;
-import com.example.microservices.workflow.bean.FluxoStates;
+import com.example.microservices.workflow.bean.Flow;
+import com.example.microservices.workflow.bean.FlowEvents;
+import com.example.microservices.workflow.bean.FlowStates;
 import com.example.microservices.workflow.interceptor.StateMachineInterceptor;
 import com.example.microservices.workflow.repository.StateMachineRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,50 +16,50 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class FluxoServiceImpl implements FluxoService {
+public class FluxoServiceImpl implements FlowService {
     public static final String DATA_TYPE = "dataType";
-    public static final String ID_FLUXO = "idFluxo";
+    public static final String ID_FLOW = "idFluxo";
     public static final String STATE = "state";
 
     private final StateMachineRepository repository;
-    private final StateMachineFactory<FluxoStates, FluxoEvents> stateMachineFactory;
+    private final StateMachineFactory<FlowStates, FlowEvents> stateMachineFactory;
 
     private final StateMachineInterceptor stateMachineInterceptor;
 
     @Override
-    public Fluxo save(Fluxo entity){
+    public Flow save(Flow entity){
         return repository.save(entity);
     }
 
     @Override
-    public Optional<Fluxo> findById(Long id) {
+    public Optional<Flow> findById(Long id) {
         return repository.findById(id);
     }
 
     @Override
-    public boolean sendEvent(Fluxo fluxo){
-        StateMachine<FluxoStates, FluxoEvents> sm = build(fluxo);
+    public boolean sendEvent(Flow flow){
+        StateMachine<FlowStates, FlowEvents> sm = build(flow);
         //set data for guard verify
-        sm.getExtendedState().getVariables().put(FluxoServiceImpl.DATA_TYPE,fluxo.getDataType());
+        sm.getExtendedState().getVariables().put(FluxoServiceImpl.DATA_TYPE,flow.getDataType());
         //set event
-        var msg = MessageBuilder.withPayload(FluxoEvents.valueOf(fluxo.getEvent()))
+        var msg = MessageBuilder.withPayload(FlowEvents.valueOf(flow.getEvent()))
                 //set headers
-                .setHeader(FluxoServiceImpl.ID_FLUXO,fluxo.getId())
-                .setHeader(FluxoServiceImpl.STATE,fluxo.getState())
+                .setHeader(FluxoServiceImpl.ID_FLOW,flow.getId())
+                .setHeader(FluxoServiceImpl.STATE,flow.getState())
                 .build();
 
         return sm.sendEvent(msg);
     }
 
     @Override
-    public StateMachine<FluxoStates, FluxoEvents> build(final Fluxo fluxo){
-        var entity =  this.repository.findById(fluxo.getId());
-        var stateMachine =  this.stateMachineFactory.getStateMachine(fluxo.getId().toString());
+    public StateMachine<FlowStates, FlowEvents> build(final Flow flow){
+        var entity =  this.repository.findById(flow.getId());
+        var stateMachine =  this.stateMachineFactory.getStateMachine(flow.getId().toString());
         stateMachine.stop();
         stateMachine.getStateMachineAccessor()
                 .doWithAllRegions(sma -> {
                     sma.addStateMachineInterceptor(stateMachineInterceptor);
-                    sma.resetStateMachine(new DefaultStateMachineContext<>(FluxoStates.valueOf(entity.get().getState()), null, null, null));
+                    sma.resetStateMachine(new DefaultStateMachineContext<>(FlowStates.valueOf(entity.get().getState()), null, null, null));
                 });
         stateMachine.start();
         return stateMachine;
