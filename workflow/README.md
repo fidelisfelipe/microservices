@@ -30,7 +30,7 @@ PUT http://localhost:8200/api/v1/flow/FINALIZAR/c29118a2-e77a-432d-8bb9-4f1b389c
 * change - cancelar
 PUT http://localhost:8200/api/v1/flow/CANCELAR/600b3c9e-0178-462c-b515-20f3e92d4a2c
 
-* Use [workflow-request.http](src/main/resources/workflow-request.http) for easy test the endpoints in IntelliJ 
+* Use [workflow-request.http](workflow-request.http) for easy test the endpoints in IntelliJ 
 
 
 
