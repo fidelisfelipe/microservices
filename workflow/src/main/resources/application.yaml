@@ -16,3 +16,11 @@ spring:
     defer-datasource-initialization: true
   h2:
     console.enabled: true
+
+# configurações do swagger
+springdoc:
+  api-docs:
+    path: /workflow-api-docs
+  swagger-ui:
+    operationsSorter: method
+

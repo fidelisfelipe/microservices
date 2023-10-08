@@ -1,0 +1,25 @@
+### create
+POST http://localhost:8200/api/v1/flow/create
+
+### create
+GET fidelisdev-workflow.azurewebsites.net/api/v1/flow/create
+
+### flow by id
+GET http://localhost:8200/api/v1/flow/f0efd5b6-7c77-4fc1-b719-fed676be28f0
+
+### history by flow id
+GET http://localhost:8200/api/v1/flow/history/f0efd5b6-7c77-4fc1-b719-fed676be28f0
+
+### history list by flow id
+GET http://localhost:8200/api/v1/flow/history/9cd2dcd4-7442-4ba6-81f1-f6ab30fd345c/list
+
+### change - iniciar
+PUT http://localhost:8200/api/v1/flow/INICIAR/9cd2dcd4-7442-4ba6-81f1-f6ab30fd345c
+### change - iniciar
+PUT https://fidelisdev-workflow.azurewebsites.net/api/v1/flow/INICIAR/9cd2dcd4-7442-4ba6-81f1-f6ab30fd345c
+
+### change - finalizar
+PUT http://localhost:8200/api/v1/flow/FINALIZAR/f0efd5b6-7c77-4fc1-b719-fed676be28f0
+
+### change - cancelar
+PUT http://localhost:8200/api/v1/flow/CANCELAR/f0efd5b6-7c77-4fc1-b719-fed676be28f0

@@ -6,7 +6,6 @@ import com.example.microservices.workflow.bean.FlowStates;
 import org.springframework.statemachine.StateMachine;
 
 import java.util.Optional;
-import java.util.UUID;
 
 public interface FlowService {
     Flow save(Flow entity);

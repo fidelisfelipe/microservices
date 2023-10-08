@@ -2,15 +2,12 @@ package com.example.microservices.workflow.config;
 
 import com.example.microservices.workflow.bean.FlowEvents;
 import com.example.microservices.workflow.bean.FlowStates;
-import com.example.microservices.workflow.event.StateMachineErrorEvent;
 import com.example.microservices.workflow.listener.StateMachineListener;
-
 import com.example.microservices.workflow.service.FlowServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.event.EventListener;
 import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.action.Action;
 import org.springframework.statemachine.config.EnableStateMachineFactory;
@@ -125,7 +122,7 @@ public class StateMachineConfiguration extends StateMachineConfigurerAdapter<Flo
             @Override
             public void execute(StateContext<FlowStates, FlowEvents> ctx) {
                 Exception exception = ctx.getException();
-                log.error("error action{}", exception.getMessage());
+                log.error("error action {}", exception.getMessage());
             }
         };
     }
