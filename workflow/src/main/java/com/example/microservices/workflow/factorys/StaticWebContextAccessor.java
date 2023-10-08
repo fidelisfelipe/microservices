@@ -1,19 +1,24 @@
 package com.example.microservices.workflow.factorys;
 
+
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StaticWebContextAccessor {
-    private static SimpMessagingTemplate messagingTemplate;
-
+public class StaticWebContextAccessor implements ApplicationContextAware {
     @Autowired
-    public StaticWebContextAccessor(SimpMessagingTemplate messagingTemplate) {
-        StaticWebContextAccessor.messagingTemplate = messagingTemplate;
+    private static ApplicationContext appContext;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        appContext = applicationContext;
     }
 
     public static SimpMessagingTemplate getMessagingTemplate() {
-        return messagingTemplate;
+        return appContext.getBean(SimpMessagingTemplate.class);
     }
 }

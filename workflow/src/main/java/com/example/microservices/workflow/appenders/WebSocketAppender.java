@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class WebSocketAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
 
+
+
     @Override
     protected void append(ILoggingEvent event) {
         SimpMessagingTemplate messagingTemplate = StaticWebContextAccessor.getMessagingTemplate();

@@ -7,7 +7,6 @@ import com.example.microservices.workflow.bean.FlowEvents;
 import com.example.microservices.workflow.bean.FlowStates;
 import com.example.microservices.workflow.bean.History;
 import com.example.microservices.workflow.config.StateMachineConfiguration;
-import com.example.microservices.workflow.event.StateMachineErrorEvent;
 import com.example.microservices.workflow.response.FlowResponse;
 import com.example.microservices.workflow.response.HistoryResponse;
 import com.example.microservices.workflow.response.MessageResponse;
@@ -22,7 +21,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +33,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 @OpenAPIDefinition(info = @Info(title = "Workflow API", version = "1.0", description = "Workflow service"))
 @Slf4j
 @RestController
