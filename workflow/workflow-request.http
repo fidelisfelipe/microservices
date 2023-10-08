@@ -2,7 +2,7 @@
 POST http://localhost:8200/api/v1/flow/create
 
 ### create
-GET fidelisdev-workflow.azurewebsites.net/api/v1/flow/create
+POST https://fidelisdev-workflow.azurewebsites.net/api/v1/flow/create
 
 ### flow by id
 GET http://localhost:8200/api/v1/flow/bfd7c21e-d8a1-40d4-92f5-adaa951aed2e

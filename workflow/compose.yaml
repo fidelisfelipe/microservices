@@ -1,0 +1,3 @@
+workflow:
+        image: fidelisfelipe/workflow:0.0.1-SNAPSHOT
+        mem_limit: 700m

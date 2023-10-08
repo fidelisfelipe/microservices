@@ -4,8 +4,8 @@ Implementations of the workflow for the project.
 
 ## Model:
 
-* Fluxo: id, state, date
-* History: id, fluxo_id, state, date
+* Flow: id, state, date
+* History: id, flow_id, state, date
 
 ## Swagger
 

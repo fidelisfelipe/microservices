@@ -20,7 +20,7 @@ import org.springframework.util.StringUtils;
 
 @Slf4j
 @Configuration
-@EnableStateMachineFactory
+@EnableStateMachineFactory//é preciso habilitar a factory para criar estrategias de persistencia
 @RequiredArgsConstructor
 public class StateMachineConfiguration extends StateMachineConfigurerAdapter<FlowStates, FlowEvents> {
 
