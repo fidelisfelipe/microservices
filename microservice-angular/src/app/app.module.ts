@@ -17,31 +17,9 @@ import { ConversionAddComponent } from './component-conversion-add/conversion-ad
 import { ConversionListComponent } from './component-conversion-list/conversion-list.component';
 import { ConversionService } from "./services/conversion.service";
 
-import { StompConfig, StompService } from '@stomp/ng2-stompjs';
-
 import { LogsReaderComponent } from './logs-reader/logs-reader.component';
-
-const stompConfig: StompConfig = {
-  // Which server?
-  url: 'ws://localhost:8200/websocket-logs',
-
-  // Headers
-  headers: {
-    login: '',
-    passcode: ''
-  },
-
-  // How often to heartbeat?
-  heartbeat_in: 0,
-  heartbeat_out: 20000,
-
-  // Wait in milliseconds before attempting auto reconnect
-  // Set to 0 to disable
-  reconnect_delay: 5000,
-
-  // Will log diagnostics on console
-  debug: true
-};
+import {RxStompService} from "./services/rx-stomp.service";
+import {rxStompServiceFactory} from "./factores/rx-stomp-service-factory";
 
 @NgModule({
   declarations: [
@@ -65,9 +43,10 @@ const stompConfig: StompConfig = {
     //  InMemoryDataService, { dataEncapsulation: false }
     //)
   ],
-  providers: [ConversionService,
-    StompService,
-    { provide: StompConfig, useValue: stompConfig }],
+  providers: [
+    ConversionService,
+    { provide: RxStompService,
+      useFactory: rxStompServiceFactory, }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

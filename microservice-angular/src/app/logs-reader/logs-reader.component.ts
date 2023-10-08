@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import {StompService} from "@stomp/ng2-stompjs";
 import {Message} from "@stomp/stompjs";
+import {RxStompService} from "../services/rx-stomp.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-logs-reader',
@@ -9,23 +9,26 @@ import {Message} from "@stomp/stompjs";
   styleUrls: ['./logs-reader.component.css']
 })
 export class LogsReaderComponent implements OnInit, OnDestroy {
+  receivedMessages: string[] = [];
 
-  public logs: string[] = [];
-  private stompService: StompService;
+  private topicSubscription!: Subscription;
 
-  constructor(stompService: StompService) {
-    this.stompService = stompService;
-  }
+  constructor(private rxStompService: RxStompService) {}
 
   ngOnInit() {
-    this.stompService.initAndConnect();
-
-    this.stompService.subscribe('/topic/logs').subscribe((message: Message) => {
-      this.logs.push(message.body);
-    });
+    this.topicSubscription = this.rxStompService
+      .watch('/topic/logs')
+      .subscribe((message: Message) => {
+        this.receivedMessages.push(message.body);
+      });
   }
 
   ngOnDestroy() {
-    this.stompService.disconnect();
+    this.topicSubscription.unsubscribe();
+  }
+
+  onSendMessage() {
+    const message = `Message generated at ${new Date()}`;
+    this.rxStompService.publish({ destination: '/topic/logs', body: message });
   }
 }
