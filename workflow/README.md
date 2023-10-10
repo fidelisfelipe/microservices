@@ -1,5 +1,7 @@
 # Workflow
 
+[![wakatime](https://wakatime.com/badge/user/f64b4287-ccd2-422f-a4b2-01e67f19827b/project/018b0f97-9f75-47f1-bc97-841f837b61ae.svg)](https://wakatime.com/badge/user/f64b4287-ccd2-422f-a4b2-01e67f19827b/project/018b0f97-9f75-47f1-bc97-841f837b61ae)
+
 Implementations of the workflow for the project.
 
 ## Model:
