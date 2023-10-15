@@ -28,7 +28,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "prepare": "cd .. && husky install microservice-angular/.husky"
+
             ]
           },
           "configurations": {
