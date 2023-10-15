@@ -1,6 +1,10 @@
 # Read Me First
 
 [![wakatime](https://wakatime.com/badge/user/f64b4287-ccd2-422f-a4b2-01e67f19827b/project/b8a17c62-fcd2-4eb0-b6d1-749af87f69bb.svg)](https://wakatime.com/badge/user/f64b4287-ccd2-422f-a4b2-01e67f19827b/project/b8a17c62-fcd2-4eb0-b6d1-749af87f69bb)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+![GitHub last commit](https://img.shields.io/github/last-commit/fidelisfelipe/microservices)
+
+
 
 The following was discovered as part of building this project:
 
