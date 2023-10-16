@@ -5,7 +5,7 @@ spring:
   application:
     name: workflow-service
 
-# configurações do banco em memoria
+  # configurações do banco em memoria
   datasource:
     url: jdbc:h2:mem:test
     username: sa
@@ -15,7 +15,12 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
   h2:
-    console.enabled: true
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: true
 
 # configurações do swagger
 springdoc:
