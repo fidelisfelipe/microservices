@@ -1,0 +1,29 @@
+<div class="container">
+  <conversion-menu></conversion-menu>
+  <h2>Search</h2>
+  <div class="form-group">
+  <label for="search-box">Search for name</label>
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" class="form-control"/>
+  </div>
+
+  <table class="table-header">
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let type of typeConversionList$ | async">
+      <td>{{type.id}}</td>
+      <td>{{type.name}}</td>
+      <td>
+        <button type="button" class="btn btn-info" routerLink="/conversion/{{type.id}}">
+          Edit
+        </button>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

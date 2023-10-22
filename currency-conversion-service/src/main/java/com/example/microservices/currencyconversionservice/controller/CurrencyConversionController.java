@@ -6,6 +6,7 @@ import com.example.microservices.currencyconversionservice.msg.MessageSender;
 import com.example.microservices.currencyconversionservice.proxy.CurrencyExchangeServiceProxy;
 import com.example.microservices.currencyconversionservice.request.CurrencyTypeRequest;
 import com.example.microservices.currencyconversionservice.response.CurrencyTypeResponse;
+import com.example.microservices.currencyconversionservice.response.ExchangeResponse;
 import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,6 +73,12 @@ public class CurrencyConversionController {
         return proxy.getCurrencyTypeList().getTypeList();
     }
 
+    @GetMapping("/currency-conversion-feign/exchange/list")
+    public List<ExchangeResponse> getExchangeList(){
+        logger.info("getExchangeList called");
+        return proxy.getExchangeList();
+    }
+
     @DeleteMapping("/currency-conversion-feign/type/{id}")
     public ResponseEntity removeExchangeTypes(@PathVariable("id")Long id){
         logger.info("removeExchangeType called");
@@ -88,6 +95,11 @@ public class CurrencyConversionController {
     public CurrencyTypeResponse newTypes(@RequestBody CurrencyTypeRequest type){
         logger.info("new type by id called {}", type.getName());
         return proxy.newCurrencyType(type);
+    }
+    @GetMapping("/currency-conversion-feign/type/name/{name}")
+    public List<CurrencyTypeResponse> getTypeForName(@PathVariable("name") String name){
+        logger.info("new type by name called {}", name);
+        return proxy.getCurrencyType(name);
     }
     @PutMapping("/currency-conversion-feign/type")
     public ResponseEntity<CurrencyTypeResponse> updateType(@RequestBody CurrencyTypeRequest type){

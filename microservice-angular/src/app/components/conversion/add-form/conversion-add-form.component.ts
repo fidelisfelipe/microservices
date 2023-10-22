@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {TypeConversion} from "../types/type-conversion";
-import {ConversionService} from "../services/conversion.service";
+import {TypeConversion} from "../../../types/type-conversion";
+import {ConversionService} from "../../../services/conversion.service";
 import {Location} from "@angular/common";
-import {MessageService} from "../services/message.service";
+import {MessageService} from "../../../services/message.service";
 
 @Component({
   selector: 'app-component-conversion-add-form',

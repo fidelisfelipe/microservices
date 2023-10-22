@@ -4,8 +4,11 @@ import com.example.microservices.currencyconversionservice.model.CurrencyConvers
 import com.example.microservices.currencyconversionservice.request.CurrencyTypeRequest;
 import com.example.microservices.currencyconversionservice.response.CurrencyResponse;
 import com.example.microservices.currencyconversionservice.response.CurrencyTypeResponse;
+import com.example.microservices.currencyconversionservice.response.ExchangeResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @FeignClient(name = "currency-exchange-service")
 public interface CurrencyExchangeServiceProxy {
@@ -14,11 +17,17 @@ public interface CurrencyExchangeServiceProxy {
     @GetMapping("/currency-exchange/type/list")
     public CurrencyResponse getCurrencyTypeList();
 
+    @GetMapping("/currency-exchange/exchange/list")
+    public List<ExchangeResponse> getExchangeList();
+
     @DeleteMapping("/currency-exchange/type/{id}")
     public void removeExchangeType(@PathVariable("id") Long id);
 
     @GetMapping("/currency-exchange/type/{id}")
     CurrencyTypeResponse getCurrencyType(@PathVariable("id") Long id);
+
+    @GetMapping("/currency-exchange/type/name/{name}")
+    List<CurrencyTypeResponse> getCurrencyType(@PathVariable("name") String name);
 
     @PutMapping("/currency-exchange/type")
     CurrencyTypeResponse updateType(CurrencyTypeRequest type);

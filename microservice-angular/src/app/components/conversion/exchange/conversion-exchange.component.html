@@ -1,0 +1,25 @@
+<div class="container">
+<conversion-menu></conversion-menu>
+<h2>Exchange List</h2>
+
+  <table class="table-header">
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>from</th>
+      <th>to</th>
+      <th>rate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let exchange of exchangeList">
+      <td>{{exchange.id}}</td>
+      <td>{{exchange.from}}</td>
+      <td>{{exchange.to}}</td>
+      <td>{{exchange.rate}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+

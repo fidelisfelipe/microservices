@@ -1,0 +1,17 @@
+<div class="container">
+  <conversion-menu></conversion-menu>
+  <div>
+    <h2>Add Simple</h2>
+    <div class="form-group">
+      <label for="new-type">Conversion name: </label>
+      <input id="new-type" #typeName class="form-control"/>
+    </div>
+    <div>
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button type="button" class="btn btn-success" (click)="add(typeName.value); typeName.value=''">
+        Add Conversion
+      </button>
+    </div>
+  </div>
+
+</div>

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable, Subject} from "rxjs";
-import {TypeConversion} from "../types/type-conversion";
-import {ConversionService} from "../services/conversion.service";
+import {TypeConversion} from "../../../types/type-conversion";
+import {ConversionService} from "../../../services/conversion.service";
 import {
-  debounceTime, distinctUntilChanged, switchMap
+  debounceTime, distinctUntilChanged, switchMap, tap
 } from 'rxjs/operators';
 import {Location} from "@angular/common";
 
@@ -26,6 +26,7 @@ export class ConversionSearchComponent implements OnInit {
        debounceTime(300),
        distinctUntilChanged(),
        switchMap((term: string) => this.conversionService.searchTypeConversion(term)),
+       tap(results => console.log('Resultados retornados:', results))
     );
   }
 

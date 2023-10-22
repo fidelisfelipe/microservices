@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TypeConversion} from "../types/type-conversion";
-import {ConversionService} from "../services/conversion.service";
+import {TypeConversion} from "../../../types/type-conversion";
+import {ConversionService} from "../../../services/conversion.service";
 import {Location} from "@angular/common";
 
 @Component({

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {TypeConversion} from "../types/type-conversion";
+import {TypeConversion} from "../../../types/type-conversion";
 
 @Component({
   selector: 'app-component-conversion-alert',

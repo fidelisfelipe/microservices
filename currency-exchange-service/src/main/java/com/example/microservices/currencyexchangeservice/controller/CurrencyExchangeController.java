@@ -7,12 +7,15 @@ import com.example.microservices.currencyexchangeservice.repository.ExchangeValu
 import com.example.microservices.currencyexchangeservice.request.CurrencyTypeRequest;
 import com.example.microservices.currencyexchangeservice.response.CurrencyResponse;
 import com.example.microservices.currencyexchangeservice.response.CurrencyTypeResponse;
+import com.example.microservices.currencyexchangeservice.response.ExchangeResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -35,7 +38,7 @@ public class CurrencyExchangeController {
             throw new RuntimeException(String.format("Unable to find data for %s to %s", from, to));
         }
 
-        exchangeValue.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
+        exchangeValue.setPort(Integer.parseInt(Objects.requireNonNull(environment.getProperty("local.server.port"))));
 
         return exchangeValue;
     }
@@ -64,6 +67,17 @@ public class CurrencyExchangeController {
         var typeReturn = CurrencyTypeResponse.builder().id(type.get().getId()).name(type.get().getName()).build();
         return typeReturn;
     }
+    @GetMapping("/currency-exchange/type/name/{name}")
+    public List<CurrencyTypeResponse> getExchangeType(@PathVariable("name") String name){
+        logger.info("getExchangeType called");
+        var typeList = currencyTypeRepository.findByNameContaining(name);
+
+        if(typeList.isEmpty()){
+            throw new RuntimeException("Type requested does not exists");
+        }
+
+        return typeList.stream().map(type -> CurrencyTypeResponse.builder().id(type.getId()).name(type.getName()).build()).collect(Collectors.toList());
+    }
     @PutMapping("/currency-exchange/type")
     public CurrencyTypeResponse updateType(@RequestBody CurrencyTypeRequest typeRequest){
         logger.info("updateType called");
@@ -91,5 +105,18 @@ public class CurrencyExchangeController {
         currencyTypeRepository.save(entity);
         var typeReturn = CurrencyTypeResponse.builder().id(entity.getId()).name(entity.getName()).build();
         return typeReturn;
+    }
+
+    @GetMapping("/currency-exchange/exchange/list")
+    public List<ExchangeResponse> getExchangeList(){
+        logger.info("getExchangeList called");
+        var exchangeList = exchangeValueRepository.findAll();
+        return exchangeList.stream().map(exchange -> ExchangeResponse.builder()
+                .id(exchange.getId())
+                .to(exchange.getTo())
+                .from(exchange.getFrom())
+                .rate(exchange.getConversionMultiple())
+                .port(Integer.parseInt(Objects.requireNonNull(environment.getProperty("local.server.port"))))
+                .build()).collect(Collectors.toList());
     }
 }

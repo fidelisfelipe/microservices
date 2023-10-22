@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TypeConversion} from "../types/type-conversion";
+import {TypeConversion} from "../../../types/type-conversion";
 import {ActivatedRoute} from "@angular/router";
-import {ConversionService} from "../services/conversion.service";
+import {ConversionService} from "../../../services/conversion.service";
 import {Location} from "@angular/common";
 
 @Component({
