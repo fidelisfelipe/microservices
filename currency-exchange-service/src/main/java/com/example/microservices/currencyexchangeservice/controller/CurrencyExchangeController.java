@@ -1,9 +1,11 @@
 package com.example.microservices.currencyexchangeservice.controller;
 
-import com.example.microservices.currencyexchangeservice.model.CurrencyType;
-import com.example.microservices.currencyexchangeservice.model.ExchangeValue;
-import com.example.microservices.currencyexchangeservice.repository.CurrencyTypeRepository;
-import com.example.microservices.currencyexchangeservice.repository.ExchangeValueRepository;
+import com.example.microservices.currencyexchangeservice.model.app.CurrencyType;
+import com.example.microservices.currencyexchangeservice.model.app.ExchangeValue;
+import com.example.microservices.currencyexchangeservice.model.aud.HistoryConversion;
+import com.example.microservices.currencyexchangeservice.repository.app.CurrencyTypeRepository;
+import com.example.microservices.currencyexchangeservice.repository.app.ExchangeValueRepository;
+import com.example.microservices.currencyexchangeservice.repository.aud.HistoryConversionRepository;
 import com.example.microservices.currencyexchangeservice.request.CurrencyTypeRequest;
 import com.example.microservices.currencyexchangeservice.response.CurrencyResponse;
 import com.example.microservices.currencyexchangeservice.response.CurrencyTypeResponse;
@@ -11,6 +13,7 @@ import com.example.microservices.currencyexchangeservice.response.ExchangeRespon
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,12 +30,17 @@ public class CurrencyExchangeController {
     private ExchangeValueRepository exchangeValueRepository;
     @Autowired
     private CurrencyTypeRepository currencyTypeRepository;
+
+    @Autowired
+    private HistoryConversionRepository historyConversionRepository;
+
     @Autowired
     private Environment environment;
     @GetMapping("/currency-exchange/from/{from}/to/{to}")
     public ExchangeValue retrieveExchangeValue(@PathVariable("from") String from, @PathVariable("to") String to){
         logger.info("retrieveExchangeValue called with {} to {}", from, to);
         ExchangeValue exchangeValue = exchangeValueRepository.findByFromAndTo(from, to);
+
 
         if(exchangeValue == null){
             throw new RuntimeException(String.format("Unable to find data for %s to %s", from, to));
@@ -52,6 +60,10 @@ public class CurrencyExchangeController {
                     .name(currencyType.getName())
                     .build();
         }).collect(Collectors.toList());
+
+        HistoryConversion history = new HistoryConversion();
+        history.setDate(java.time.LocalDateTime.now());
+        historyConversionRepository.save(history);
         var response = CurrencyResponse.builder().typeList(currenseTypeResponseList).build();
         return response;
     }

@@ -1,4 +1,4 @@
-package com.example.microservices.currencyexchangeservice.model;
+package com.example.microservices.currencyexchangeservice.model.app;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

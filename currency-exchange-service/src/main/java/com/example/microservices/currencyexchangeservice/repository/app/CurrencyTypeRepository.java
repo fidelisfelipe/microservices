@@ -1,6 +1,6 @@
-package com.example.microservices.currencyexchangeservice.repository;
+package com.example.microservices.currencyexchangeservice.repository.app;
 
-import com.example.microservices.currencyexchangeservice.model.CurrencyType;
+import com.example.microservices.currencyexchangeservice.model.app.CurrencyType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
