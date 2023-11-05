@@ -6,7 +6,10 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -54,5 +57,19 @@ public class AudDbConfig {
     public PlatformTransactionManager auditTransactionManager(
             @Qualifier("auditEntityManagerFactory") EntityManagerFactory auditEntityManagerFactory) {
         return new JpaTransactionManager(auditEntityManagerFactory);
+    }
+
+    @Bean
+    public DataSourceInitializer auditDataSourceInitializer(
+            @Qualifier("auditDataSource") DataSource dataSource) {
+        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+        resourceDatabasePopulator.addScripts(
+                new ClassPathResource("/audit/data-audit.sql")
+        );
+
+        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+        dataSourceInitializer.setDataSource(dataSource);
+        dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
+        return dataSourceInitializer;
     }
 }
