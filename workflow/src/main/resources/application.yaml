@@ -1,0 +1,31 @@
+server:
+  port: 8200
+
+spring:
+  application:
+    name: workflow-service
+
+  # configurações do banco em memoria
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: true
+
+# configurações do swagger
+springdoc:
+  api-docs:
+    path: /workflow-api-docs
+  swagger-ui:
+    operationsSorter: method
+

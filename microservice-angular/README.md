@@ -1,6 +1,6 @@
 # MicroserviceAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## [Typescript](https://www.typescriptlang.org/docs/handbook/intro.html)
 ## [Angular Architecture](https://angular.io/guide/architecture)

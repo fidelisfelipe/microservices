@@ -5,6 +5,6 @@ export class Conversion{
         public value: string,
         public from: TypeConversion,
         public to: TypeConversion,
-        public result: string
+        public totalCalculatedAmount: string
     ){}
 }

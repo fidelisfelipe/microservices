@@ -80,6 +80,16 @@ services:
     networks:
       - currency-network
 
+  workflow:
+    image: fidelisfelipe/workflow:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8200:8200"
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka/
+      - EUREKA.CLIENT.FETCHREGISTRY=true
+      - spring.zipkin.baseUrl=http://zipkin-server:9411
+
   zipkin-server:
     image: openzipkin/zipkin:2.24
     mem_limit: 300m
@@ -99,4 +109,3 @@ services:
 
 networks:
   currency-network:
-

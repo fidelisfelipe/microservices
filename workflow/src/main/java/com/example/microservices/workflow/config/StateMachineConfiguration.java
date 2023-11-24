@@ -1,10 +1,9 @@
 package com.example.microservices.workflow.config;
 
-import com.example.microservices.workflow.bean.FluxoEvents;
-import com.example.microservices.workflow.bean.FluxoStates;
+import com.example.microservices.workflow.bean.FlowEvents;
+import com.example.microservices.workflow.bean.FlowStates;
 import com.example.microservices.workflow.listener.StateMachineListener;
-
-import com.example.microservices.workflow.service.FluxoServiceImpl;
+import com.example.microservices.workflow.service.FlowServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -21,14 +20,15 @@ import org.springframework.util.StringUtils;
 
 @Slf4j
 @Configuration
-@EnableStateMachineFactory
+@EnableStateMachineFactory//é preciso habilitar a factory para criar estrategias de persistencia
 @RequiredArgsConstructor
-public class StateMachineConfiguration extends StateMachineConfigurerAdapter<FluxoStates, FluxoEvents> {
+public class StateMachineConfiguration extends StateMachineConfigurerAdapter<FlowStates, FlowEvents> {
 
+    public static final String ACCEPT = "accept";
     private final StateMachineListener stateMachineListener;
 
     @Override
-    public void configure(StateMachineConfigurationConfigurer<FluxoStates, FluxoEvents> config) throws Exception{
+    public void configure(StateMachineConfigurationConfigurer<FlowStates, FlowEvents> config) throws Exception{
         config
                 .withConfiguration()
                 .listener(stateMachineListener);
@@ -36,22 +36,33 @@ public class StateMachineConfiguration extends StateMachineConfigurerAdapter<Flu
     }
 
     @Override
-    public void configure(StateMachineStateConfigurer<FluxoStates, FluxoEvents> states) throws Exception {
+    public void configure(StateMachineStateConfigurer<FlowStates, FlowEvents> states) throws Exception {
         states.withStates()
-                .initial(FluxoStates.CRIADO, action())
-                .state(FluxoStates.INICIADO, action(), endAction())
-                .end(FluxoStates.FINALIZADO)
-                .end(FluxoStates.CANCELADO);
+                .initial(FlowStates.CRIADO, action())
+                .state(FlowStates.INICIADO, action(), endAction())
+                .end(FlowStates.FINALIZADO)
+                .end(FlowStates.CANCELADO);
     }
 
     @Override
-    public void configure(StateMachineTransitionConfigurer<FluxoStates,
-                FluxoEvents> transitions) throws Exception {
+    public void configure(StateMachineTransitionConfigurer<FlowStates,
+            FlowEvents> transitions) throws Exception {
         transitions
+
                 .withExternal()
-                .source(FluxoStates.CRIADO)
-                .target(FluxoStates.INICIADO)
-                .event(FluxoEvents.INICIAR)
+                .source(FlowStates.CRIADO)
+                .target(FlowStates.CRIADO)
+                .event(FlowEvents.CRIAR)
+                .guard(guard())
+                .action(ctx -> {
+                    log.info("CRIADO");
+                })
+
+                .and()
+                .withExternal()
+                .source(FlowStates.CRIADO)
+                .target(FlowStates.INICIADO)
+                .event(FlowEvents.INICIAR)
                 .guard(guard())
                 .action(ctx -> {
                     log.info("INICIADO");
@@ -59,9 +70,9 @@ public class StateMachineConfiguration extends StateMachineConfigurerAdapter<Flu
 
                 .and()
                 .withExternal()
-                .source(FluxoStates.CRIADO)
-                .target(FluxoStates.CANCELADO)
-                .event(FluxoEvents.CANCELAR)
+                .source(FlowStates.CRIADO)
+                .target(FlowStates.CANCELADO)
+                .event(FlowEvents.CANCELAR)
                 .action(ctx -> {
                     log.info("CANCELADO");
                 })
@@ -69,49 +80,49 @@ public class StateMachineConfiguration extends StateMachineConfigurerAdapter<Flu
 
                 .and()
                 .withExternal()
-                .source(FluxoStates.INICIADO)
-                .target(FluxoStates.CANCELADO)
-                .event(FluxoEvents.CANCELAR)
+                .source(FlowStates.INICIADO)
+                .target(FlowStates.CANCELADO)
+                .event(FlowEvents.CANCELAR)
                 .action(ctx -> {
                     log.info("CANCELADO");
                 })
 
                 .and()
                 .withExternal()
-                .source(FluxoStates.INICIADO)
-                .target(FluxoStates.FINALIZADO)
-                .event(FluxoEvents.FINALIZAR)
+                .source(FlowStates.INICIADO)
+                .target(FlowStates.FINALIZADO)
+                .event(FlowEvents.FINALIZAR)
                 .action(ctx -> {
                     log.info("FINALIZADO");
                 });
     }
     @Bean
-    public Guard<FluxoStates, FluxoEvents> guard() {
+    public Guard<FlowStates, FlowEvents> guard() {
         return ctx -> {
             log.info("guard condition");
-            var dataType = String.class.cast(ctx.getExtendedState().getVariables().get(FluxoServiceImpl.DATA_TYPE));
-            return !StringUtils.isEmpty(dataType) && dataType.equals("accept");
+            var dataType = String.class.cast(ctx.getExtendedState().getVariables().get(FlowServiceImpl.DATA_TYPE));
+            return !StringUtils.isEmpty(dataType) && dataType.equals(ACCEPT);
         };
 
     }
 
     @Bean
-    public Action<FluxoStates, FluxoEvents> action() {
+    public Action<FlowStates, FlowEvents> action() {
         return ctx -> log.info("action");
     }
 
     @Bean
-    public Action<FluxoStates, FluxoEvents> endAction() {
+    public Action<FlowStates, FlowEvents> endAction() {
         return ctx -> log.info("end action");
     }
 
     @Bean
-    public Action<FluxoStates, FluxoEvents> errorAction() {
-        return new Action<FluxoStates, FluxoEvents>() {
+    public Action<FlowStates, FlowEvents> errorAction() {
+        return new Action<FlowStates, FlowEvents>() {
             @Override
-            public void execute(StateContext<FluxoStates, FluxoEvents> ctx) {
+            public void execute(StateContext<FlowStates, FlowEvents> ctx) {
                 Exception exception = ctx.getException();
-                log.error("error {}", exception.getMessage());
+                log.error("error action {}", exception.getMessage());
             }
         };
     }

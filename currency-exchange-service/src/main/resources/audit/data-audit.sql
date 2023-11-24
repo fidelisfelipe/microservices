@@ -1,0 +1,1 @@
+insert into history_conversion (date) values (CURRENT_TIMESTAMP);

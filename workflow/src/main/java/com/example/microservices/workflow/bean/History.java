@@ -21,11 +21,11 @@ public class History extends AbstractEntity{
     private Long id;
 
     @ManyToOne
-    private Fluxo fluxo;
+    private Flow flow;
 
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss'Z'")
-    private LocalDateTime creationDate;
+    private LocalDateTime dateTime;
 
     private String state;
 }

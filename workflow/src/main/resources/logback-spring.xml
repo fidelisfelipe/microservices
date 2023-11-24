@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProfile name="default">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <appender name="WEBSOCKET" class="com.example.microservices.workflow.appenders.WebSocketAppender">
+        </appender>
+
+        <root level="info">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="WEBSOCKET" />
+        </root>
+    </springProfile>
+</configuration>
