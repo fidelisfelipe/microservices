@@ -1,3 +1,7 @@
+# Microservice project
+
+[![wakatime](https://wakatime.com/badge/user/f64b4287-ccd2-422f-a4b2-01e67f19827b/project/7caa551d-73c4-4c0f-83dd-5ae9b30c9e4d.svg)](https://wakatime.com/badge/user/f64b4287-ccd2-422f-a4b2-01e67f19827b/project/7caa551d-73c4-4c0f-83dd-5ae9b30c9e4d)
+
 # Read Me First
 The following was discovered as part of building this project:
 
@@ -62,14 +66,14 @@ The following guides illustrate how to use some features concretely:
     - POST - http://localhost:8080/actuator/refresh - refresh one instance
     - POST - http://localhost:8080/actuator/busrefresh - refresh all instances
 	
- * docker
+  * docker
     - [Open Zipkin] (https://hub.docker.com/r/openzipkin/zipkin/)
 	```
-		docker run -d -p 9411:9411 openzipkin/zipkin
+       docker run -d -p 9411:9411 openzipkin/zipkin
 	```
  
    * spring boot docker
      ```
         mvn spring-boot:build-image -DskipTests
      ```
-   
+     
